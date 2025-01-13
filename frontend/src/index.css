@@ -1,17 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
+  --primary: #5049e1;
+  --primary-light: #f3f2fc;
+  --primary-light-1: #e9e8f7;
 
-  --primary:#5049e1;
-  --primary-light:#F3F2FC;
-  --primary-light-1:#e9e8f7;
+  --gray-0: #b2b2b2;
+  --gray-1: #6f6f6f;
 
-  --gray-0:#b2b2b2;
-  --gray-1:#6f6f6f;
-
-
-  --dark-0:#212121;
-  --dark-1:#171717;
-  
-
-  
+  --dark-0: #212121;
+  --dark-1: #171717;
 }
 
+.container{
+  max-width: 1280px;
+  width: 92%;
+  margin: 0 auto;
+}
