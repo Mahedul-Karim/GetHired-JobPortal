@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <>
       {location.pathname === "/" ? (
-        <header className="bg-[url('./hero-bg.png')] bg-cover bg-no-repeat">
+        <header className="bg-[url('/assets/hero-bg.png')] bg-cover bg-no-repeat">
           <Header />
         </header>
       ) : (
