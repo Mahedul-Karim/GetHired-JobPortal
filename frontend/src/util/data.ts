@@ -1,0 +1,22 @@
+export const NAV_DATA=[
+    {
+        id:1,
+        label:'Home',
+        to:'/'
+    },
+    {
+        id:2,
+        label:'Jobs',
+        to:'/jobs'
+    },
+    {
+        id:3,
+        label:'Blog',
+        to:'/blog'
+    },
+    {
+        id:4,
+        label:'About',
+        to:'/about'
+    },
+]
