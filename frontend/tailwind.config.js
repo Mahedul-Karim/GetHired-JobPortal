@@ -14,16 +14,17 @@ export default {
         "primary-light": {
           0: "var(--primary-light)",
           1: "var(--primary-light-1)",
+          2: "var(--primary-light-2)",
         },
         gray: {
           0: "var(--gray-0)",
           1: "var(--gray-1)",
-          2:'var(--gray-2)'
+          2: "var(--gray-2)",
         },
         dark: {
           0: "var(--dark-0)",
           1: "var(--dark-1)",
-          2:'var(--dark-2)'
+          2: "var(--dark-2)",
         },
       },
     },

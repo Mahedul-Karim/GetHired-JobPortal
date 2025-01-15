@@ -16,14 +16,14 @@ interface Props {
   }) => void;
 }
 
-const NavSidebar: React.FC<Props> = ({ open }) => {
+const NavSidebar: React.FC<Props> = ({ open, setOpen }) => {
   const sidebar = (
     <div
       className={`${
         open.clicked ? "visible translate-x-0" : "invisible -translate-x-[100%]"
-      } fixed top-0 left-0 w-[70%] bg-white h-screen border-r border-solid border-gray-2 transition-all duration-300`}
+      } fixed top-0 left-0 w-[70%] bg-white h-full border-r border-solid border-gray-2 transition-all duration-300`}
     >
-      <Nav className="h-full py-8 px-4" />
+      <Nav className="h-full py-8 px-4" onClick={setOpen} />
     </div>
   );
 

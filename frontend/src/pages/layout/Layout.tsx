@@ -11,9 +11,7 @@ const Layout = () => {
           <Header />
         </header>
       ) : (
-        <header>
-          <Header />
-        </header>
+        <Header />
       )}
       <Outlet />
     </>
