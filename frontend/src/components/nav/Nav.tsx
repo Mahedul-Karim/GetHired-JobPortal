@@ -22,12 +22,7 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
             onClick={() => {
               if (!onClick) return;
 
-              onClick((prev: any) => {
-                return {
-                  ...prev,
-                  clicked: false,
-                };
-              });
+              onClick(false);
             }}
           >
             <Link
@@ -49,12 +44,7 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
           onClick={() => {
             if (!onClick) return;
 
-            onClick((prev: any) => {
-              return {
-                ...prev,
-                clicked: false,
-              };
-            });
+            onClick(false);
           }}
         >
           Sign In
