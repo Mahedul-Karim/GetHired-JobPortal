@@ -11,7 +11,7 @@ const Header = () => {
   const { observeSections } = useIntersectionObserver({
     threshold: 0,
     action: (element, isIntersecting) => {
-      console.log(isIntersecting)
+      
       if (!isIntersecting) {
         containerRef.current!.classList.add("stickyNav");
       } else {

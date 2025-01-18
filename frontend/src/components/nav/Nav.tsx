@@ -27,7 +27,7 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
           >
             <Link
               to={nav.to}
-              className={`transition-all flex rounded-md md:rounded-none items-center justify-center hover:bg-primary md:hover:bg-transparent hover:text-white w-full md:w-auto duration-300 md:hover:text-primary relative font-medium p-2 md:before:absolute md:before:bottom-0 md:before:left-0 md:before:h-[2px]  md:before:bg-primary md:before:transition-all md:before:duration-300 md:hover:before:w-full ${
+              className={`transition-all flex rounded-md md:rounded-none items-center justify-center hover:bg-primary md:hover:bg-transparent hover:text-white w-full md:w-auto duration-300 md:hover:text-primary relative p-2 md:before:absolute md:before:bottom-0 md:before:left-0 md:before:h-[2px]  md:before:bg-primary md:before:transition-all md:before:duration-300 md:hover:before:w-full font-semibold ${
                 location.pathname === nav.to
                   ? "bg-primary text-white md:bg-transparent md:text-primary md:before:w-full"
                   : "text-dark-2 md:before:w-[0px] md:[&:not(:hover)]:before:w-0 md:[&:not(:hover)]:before:left-[auto] md:[&:not(:hover)]:before:right-0"

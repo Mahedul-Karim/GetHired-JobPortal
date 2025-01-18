@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 type Action = (
-  target: any,
+  target: Element,
   isIntersecting: boolean,
   observer: IntersectionObserver
 ) => void;
