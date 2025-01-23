@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 type Action = (
-  target: Element,
+  target: HTMLElement,
   isIntersecting: boolean,
   observer: IntersectionObserver
 ) => void;
@@ -23,7 +23,7 @@ const useIntersectionObserver = ({ threshold, action }: Params) => {
       observer: IntersectionObserver
     ) => {
       entries.forEach((entry) => {
-        action(entry.target, entry.isIntersecting, observer);
+        action(entry.target as HTMLElement, entry.isIntersecting, observer);
       });
     };
 

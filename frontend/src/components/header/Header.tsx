@@ -3,6 +3,7 @@ import Nav from "../nav/Nav";
 import MobileNav from "../nav/MobileNav";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { useEffect, useRef } from "react";
+import Container from "../layout/Container";
 
 const Header = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -11,7 +12,6 @@ const Header = () => {
   const { observeSections } = useIntersectionObserver({
     threshold: 0,
     action: (element, isIntersecting) => {
-      
       if (!isIntersecting) {
         containerRef.current!.classList.add("stickyNav");
       } else {
@@ -28,18 +28,21 @@ const Header = () => {
 
   return (
     <>
-    <div ref={sentinelRef} className="h-[64px] absolute top-0 left-0 w-full -z-[1] pointer-events-none"/>
-    <section
-      className={`absolute top-0 left-0 w-full`}
-      ref={containerRef}
-    >
-      <nav className={`container flex items-center justify-between py-3`}>
-        <Logo />
-        <Nav className="hidden md:flex" />
-        <MobileNav />
-      </nav>
-    </section>
-      </>
+      <div
+        ref={sentinelRef}
+        className="h-[64px] absolute top-0 left-0 w-full -z-[1] pointer-events-none"
+      />
+      <section className={`absolute top-0 left-0 w-full`} ref={containerRef}>
+        <Container
+          as="nav"
+          className={`flex items-center justify-between py-3`}
+        >
+          <Logo />
+          <Nav className="hidden md:flex" />
+          <MobileNav />
+        </Container>
+      </section>
+    </>
   );
 };
 

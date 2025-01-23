@@ -13,31 +13,34 @@
   --primary-light-1: #f3f2fc;
   --primary-light-2: #e9e8f7;
 
+  --secondary:#FF8667;
+
   --gray-0: #b2b2b2;
   --gray-1: #6f6f6f;
   --gray-2: #e9ecef;
 
-  --dark-0: #212121;
-  --dark-1: #171717;
-  --dark-2: #262626;
+  --dark-0: #363636;
+  --dark-1: #212121;
+  --dark-2: #171717;
+  --dark-3: #262626;
 }
 
 body{
   font-family: 'Work Sans' ,sans-serif;
 }
-
-.container {
-  max-width: 1280px;
-  width: 90%;
-  margin: 0 auto;
+.span{
+  background: linear-gradient(90deg, #5049e1 30%, #49e1e0);
+  background-clip: text;
+  color: transparent;
 }
 
 .stickyNav {
-  background: rgb(255, 255, 255,0.95);
+  background: rgba(255,255,255, 0.6);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--gray-2);
-  position: sticky;
   animation: slideDown 1s forwards;
+  position: fixed;
+  z-index: 5;
 }
 
 @keyframes slideDown {
@@ -68,6 +71,35 @@ body{
   left: auto;
   right: 0;
 }
+
+.slideFromLeft{
+  animation: leftToRight 2s forwards;
+}
+.slideFromRight{
+  animation: rightToLeft 2s forwards;
+}
+
+@keyframes leftToRight {
+  0%{
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes rightToLeft {
+  0%{
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 
 @keyframes openTop {
   0% {

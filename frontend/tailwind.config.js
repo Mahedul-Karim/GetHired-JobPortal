@@ -11,6 +11,7 @@ export default {
       },
       colors: {
         primary: "var(--primary)",
+        secondary:'var(--secondary)',
         "primary-light": {
           0: "var(--primary-light)",
           1: "var(--primary-light-1)",
@@ -25,6 +26,7 @@ export default {
           0: "var(--dark-0)",
           1: "var(--dark-1)",
           2: "var(--dark-2)",
+          3:'var(--dark-3)'
         },
       },
     },
