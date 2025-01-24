@@ -25,7 +25,7 @@ const Hero = () => {
 
   return (
     <section
-      className={`bg-[url('/assets/hero-bg.png')] bg-no-repeat bg-cover py-28 xs:py-36 bg-[top_center]`}
+      className={`bg-[url('/assets/hero-bg.png')] bg-no-repeat bg-cover pt-28 xs:pt-36 bg-[top_center]`}
     >
       <Container
         as="div"
