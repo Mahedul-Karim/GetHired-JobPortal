@@ -9,7 +9,7 @@ const TopCompanies = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { observeSections } = useIntersectionObserver({
-    threshold: 0.5,
+    threshold: 0.8,
     action: (element, isIntersecting, observer) => {
       if (isIntersecting) {
         element.classList.add("scaleUp");
@@ -29,7 +29,7 @@ const TopCompanies = () => {
       <Heading>Top hiring Companies</Heading>
       <Paragraph>Get started with best companies</Paragraph>
       <div
-        className="grid grid-cols-2 xs:grid-cols-3 gap-10 lg:grid-cols-6 my-8 items-center company-images"
+        className="grid grid-cols-2 xs:grid-cols-3 gap-10 lg:grid-cols-6 my-8 items-center"
         ref={containerRef}
       >
         {[

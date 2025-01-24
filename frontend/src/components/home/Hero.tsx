@@ -33,7 +33,7 @@ const Hero = () => {
         ref={containerRef}
       >
         <div data-pos="left" className={`opacity-0`}>
-          <h1 className="text-dark-0 max-w-[280px] xs:max-w-[370px] sm:max-w-[480px] leading-[1.1] text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-semibold">
+          <h1 className="text-dark-0 max-w-[370px] sm:max-w-[480px] leading-[1.1] text-5xl md:text-6xl lg:text-7xl font-semibold">
             Find your <span className="text-gradient">dream job</span> today
           </h1>
           <p className="text-dark-0 text-sm sm:text-base my-4 max-w-[515px]">
