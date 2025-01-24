@@ -1,11 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(90deg, var(--primary) 30%, var(--violet));
+    background-clip: text;
+    color: transparent;
+  }
+}
 
 :root {
   --primary: #5049e1;
@@ -13,7 +19,9 @@
   --primary-light-1: #f3f2fc;
   --primary-light-2: #e9e8f7;
 
-  --secondary:#FF8667;
+  --secondary: #ff8667;
+
+  --violet: #a150e1;
 
   --gray-0: #b2b2b2;
   --gray-1: #6f6f6f;
@@ -25,17 +33,12 @@
   --dark-3: #262626;
 }
 
-body{
-  font-family: 'Work Sans' ,sans-serif;
-}
-.span{
-  background: linear-gradient(90deg, #5049e1 30%, #49e1e0);
-  background-clip: text;
-  color: transparent;
+body {
+  font-family: "Work Sans", sans-serif;
 }
 
 .stickyNav {
-  background: rgba(255,255,255, 0.6);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--gray-2);
   animation: slideDown 1s forwards;
@@ -72,34 +75,55 @@ body{
   right: 0;
 }
 
-.slideFromLeft{
+.slideFromLeft {
   animation: leftToRight 2s forwards;
 }
-.slideFromRight{
+.slideFromRight {
   animation: rightToLeft 2s forwards;
 }
 
 @keyframes leftToRight {
-  0%{
+  0% {
     opacity: 0;
     transform: translateX(-50%);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 @keyframes rightToLeft {
-  0%{
+  0% {
     opacity: 0;
     transform: translateX(50%);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
+.hideScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.showScrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.horizontalScrollbar::-webkit-scrollbar {
+  height: 5px;
+}
+
+.horizontalScrollbar::-webkit-scrollbar-track,
+.showScrollbar::-webkit-scrollbar-track {
+  background-color: var(--primary-light);
+}
+.horizontalScrollbar::-webkit-scrollbar-thumb,
+.showScrollbar::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(var(--primary), var(--violet));
+  border-radius: 10px;
+}
 
 @keyframes openTop {
   0% {
