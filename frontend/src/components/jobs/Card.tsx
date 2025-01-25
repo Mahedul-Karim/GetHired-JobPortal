@@ -51,13 +51,13 @@ const Card: React.FC<Props> = ({ className = "", style = {} }) => {
             /month
           </p>
         </div>
-        <div className="flex items-center justify-between mt-2 gap-2 xs:gap-4">
-          <Button className="bg-primary-light-2 !text-primary hover:bg-primary hover:!text-white transition-all duration-500 md:text-base text-sm xs:px-6 px-3">
+        <div className="flex flex-col xs:flex-row xs:items-center justify-between mt-2 gap-2 xs:gap-4">
+          <Button className="bg-primary-light-2 !text-primary hover:bg-primary hover:!text-white transition-all duration-500 md:text-base text-sm px-6">
             Details
           </Button>
           <Button
             variant="outline"
-            className="border-gray-0 text-gray-1 xs:px-3 px-2 w-auto"
+            className="border-gray-0 text-gray-1 px-3 "
           >
             <Bookmark
               strokeWidth={1.5}
