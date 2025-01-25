@@ -1,1 +1,1 @@
-export const ANIMATION_DELAY=200;/**in milliseconds */
+export const ANIMATION_DELAY=100;/**in milliseconds */
