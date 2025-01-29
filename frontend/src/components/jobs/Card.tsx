@@ -52,12 +52,12 @@ const Card: React.FC<Props> = ({ className = "", style = {} }) => {
           </p>
         </div>
         <div className="flex flex-col xs:flex-row xs:items-center justify-between mt-2 gap-2 xs:gap-4">
-          <Button className="bg-primary-light-2 !text-primary hover:bg-primary hover:!text-white transition-all duration-500 md:text-base text-sm px-6">
+          <Button className="bg-primary-light-2 !text-primary hover:bg-primary hover:!text-white transition-all duration-500 md:text-base text-sm md:px-6 !px-3">
             Details
           </Button>
           <Button
             variant="outline"
-            className="border-gray-0 text-gray-1 px-3 "
+            className="!border-gray-0 text-gray-1 md:px-3 px-2"
           >
             <Bookmark
               strokeWidth={1.5}

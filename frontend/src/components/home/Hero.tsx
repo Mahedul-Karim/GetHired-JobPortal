@@ -41,7 +41,7 @@ const Hero = () => {
             study major. your dream job is waiting for you.
           </p>
           <p className="text-dark-0 font-medium text-lg xs:text-xl">
-            25.478 Offers Worldwide
+            25,478 Offers Worldwide
           </p>
         </div>
         <div
