@@ -258,7 +258,7 @@ body {
   content: '';
   width: 48px;
   height: 5px;
-  background: #f0808050;
+  background: var(--primary-light);
   position: absolute;
   top: 60px;
   left: 0;
@@ -270,7 +270,7 @@ body {
   content: '';
   width: 100%;
   height: 100%;
-  background: #f08080;
+  background: var(--primary);
   position: absolute;
   top: 0;
   left: 0;
