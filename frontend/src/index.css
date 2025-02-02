@@ -10,12 +10,10 @@
     background-clip: text;
     color: transparent;
   }
-  .bg-gradient{
+  .bg-gradient {
     background: linear-gradient(90deg, var(--primary) 30%, var(--violet));
   }
 }
-
- 
 
 :root {
   --primary: #5049e1;
@@ -79,23 +77,21 @@ body {
   right: 0;
 }
 
-
-
 .slideFromLeft {
   animation: leftToRight 2s forwards;
 }
 .slideFromRight {
   animation: rightToLeft 2s forwards;
 }
-.scaleUp{
+.scaleUp {
   animation: scaleUpAnimation 1s forwards;
 }
 
-@keyframes scaleUpAnimation{
-  from{
+@keyframes scaleUpAnimation {
+  from {
     transform: scale(0);
   }
-  to{
+  to {
     transform: scale(1);
   }
 }
@@ -244,9 +240,8 @@ body {
   }
 }
 
-
 /*=======================loader starts================*/
-/* From Uiverse.io by alexruix */ 
+/* From Uiverse.io by alexruix */
 .loader {
   width: 48px;
   height: 48px;
@@ -255,7 +250,7 @@ body {
 }
 
 .loader:before {
-  content: '';
+  content: "";
   width: 48px;
   height: 5px;
   background: var(--primary-light);
@@ -267,7 +262,7 @@ body {
 }
 
 .loader:after {
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   background: var(--primary);
@@ -288,7 +283,7 @@ body {
   }
 
   50% {
-    transform: translateY(18px) scale(1, .9) rotate(45deg);
+    transform: translateY(18px) scale(1, 0.9) rotate(45deg);
     border-bottom-right-radius: 40px;
   }
 
@@ -302,9 +297,8 @@ body {
 }
 
 @keyframes shadow324 {
-
   0%,
-    100% {
+  100% {
     transform: scale(1, 1);
   }
 
@@ -313,3 +307,19 @@ body {
   }
 }
 /*================================loader ends==================*/
+.swiper-pagination {
+  bottom: -20px !important;
+}
+.swiper-pagination-bullet{
+  width: 25px !important;
+  border-radius: 10px !important;
+  height: 4px !important;
+}
+.swiper-pagination-bullet-active{
+  background-color: var(--primary) !important;
+}
+@media screen and (min-width: 400px) {
+  .swiper-pagination {
+    bottom: -40px !important;
+  }
+}

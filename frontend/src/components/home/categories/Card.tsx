@@ -15,6 +15,7 @@ const Card:React.FC<Props> = ({src,label,className,style={}}) => {
           src={src}
           alt=""
           className="object-cover max-w-[125px] w-full "
+          loading="lazy"
         />
       </div>
       <Link to={""} className="px-2 pb-4 text-sm xs:text-base lg:text-lg font-semibold text-dark-1 transition-all duration-300 hover:text-gradient">

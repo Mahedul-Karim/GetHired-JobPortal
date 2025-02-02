@@ -3,7 +3,7 @@ import React from "react";
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "outline";
   type?: "button" | "submit";
-  disabled?:boolean;
+  disabled?: boolean;
 }
 
 const buttonVariants = {
@@ -23,7 +23,7 @@ const Button: React.FC<Props> = ({
 
   return (
     <button
-      className={`${buttonStyles} px-6 py-2 rounded-md font-medium w-full md:w-auto flex items-center justify-center ${className}`}
+      className={`${buttonStyles} px-6 py-2 rounded-md font-medium w-full md:w-auto flex items-center justify-center transition-all duration-300 active:scale-75 ${className}`}
       type={type}
       disabled={disabled}
       {...props}

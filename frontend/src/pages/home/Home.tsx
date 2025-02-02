@@ -4,6 +4,7 @@ import TopCompanies from "../../components/home/TopCompanies";
 import LatestJobs from "../../components/home/LatestJobs";
 import GetJobs from "../../components/home/GetJobs";
 import PopularCategories from "../../components/home/PopularCategories";
+import Testimonials from "../../components/home/Testimonials";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <LatestJobs />
       <GetJobs />
       <PopularCategories />
+      <Testimonials />
     </>
   );
 };
