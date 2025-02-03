@@ -31,7 +31,7 @@ const Card:React.FC<Props> = ({review,image,userName,job}) => {
             </div>
           <div>
             <h3 className="font-semibold xs:text-lg">{userName}</h3>
-            <h3 className="text-gray-500 xs:text-base text-sm">{job}</h3>
+            <p className="text-gray-500 xs:text-base text-sm">{job}</p>
           </div>
         </div>
       </div>
