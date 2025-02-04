@@ -1,8 +1,10 @@
 import { Link } from "react-router";
 
-const Logo = () => {
+type Props = React.HTMLAttributes<HTMLAnchorElement>;
+
+const Logo: React.FC<Props> = ({ style = {} }) => {
   return (
-    <Link to={"/"} className="text-2xl font-bold text-gradient">
+    <Link to={"/"} className="text-2xl font-bold text-gradient" style={style}>
       GetHired
     </Link>
   );

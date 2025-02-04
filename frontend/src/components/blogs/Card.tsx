@@ -5,15 +5,13 @@ import { Link } from "react-router";
 const Card = () => {
   return (
     <article className="bg-white overflow-clip rounded-lg h-full">
-      <div className="relative">
+      <div>
         <img
           src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
           className="max-h-[190px] w-full object-cover"
         />
-        {/* <div className="absolute top-4 right-4">
-        <Badge className="!bg-primary text-white">2 days ago</Badge>
-        </div> */}
+        
       </div>
       <div className="p-2 xs:p-4 flex flex-col gap-3">
         <div>
