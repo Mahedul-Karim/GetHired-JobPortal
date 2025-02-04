@@ -1,0 +1,65 @@
+import React, { useRef, useState } from "react";
+import { ChevronsUpDown } from "lucide-react";
+import { useOutsideClick } from "../../../hooks/useOutsideClick";
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  defaultValue: string;
+  haveSearch?: boolean;
+  searchPlaceholder?: string;
+}
+
+const Popover: React.FC<Props> = ({
+  defaultValue,
+  haveSearch = false,
+  searchPlaceholder,
+  className,
+}) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const [open, setOpen] = useState(false);
+
+  useOutsideClick({
+    ref: containerRef,
+    onClick: () => setOpen(false),
+  });
+
+  return (
+    <div
+      className={`flex items-center justify-between w-full bg-white border border-solid rounded-lg text-sm text-gray-1 p-3 font-medium cursor-pointer my-3 relative ${className}`}
+      ref={containerRef}
+      onClick={() => {
+        setOpen((prev) => !prev);
+      }}
+    >
+      {defaultValue} <ChevronsUpDown className="size-4 text-dark-1" />{" "}
+      <div
+        className={`popover absolute top-[55px] bg-white border border-solid left-0 w-full rounded-lg overflow-clip transition-all duration-300 ${
+          open
+            ? "-translate-y-0 opacity-1 visible"
+            : "-translate-y-[10px] opacity-0 invisible"
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {haveSearch && (
+          <div className="p-3">
+            <input
+              type="text"
+              className="bg-primary-light-1 px-3 py-2 rounded-lg focus:outline-none w-full"
+              placeholder={searchPlaceholder || ""}
+            />
+          </div>
+        )}
+        <div>
+          <p className="p-3 hover:bg-primary-light-2 transition-all duration-300">
+            Frontend
+          </p>
+          <p className="p-3 hover:bg-primary-light-2 transition-all duration-300">
+            Backend
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Popover;

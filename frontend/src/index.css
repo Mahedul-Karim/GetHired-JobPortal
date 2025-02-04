@@ -307,6 +307,14 @@ body {
   }
 }
 /*================================loader ends==================*/
+
+input[type="checkbox"]:checked + div{
+  border-color: var(--primary);
+}
+input[type="checkbox"]:checked + div > svg{
+ visibility: visible;
+}
+
 .swiper-pagination {
   bottom: -20px !important;
 }
