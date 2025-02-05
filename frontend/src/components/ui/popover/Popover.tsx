@@ -6,6 +6,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue: string;
   haveSearch?: boolean;
   searchPlaceholder?: string;
+  popoverClass?: string;
 }
 
 const Popover: React.FC<Props> = ({
@@ -13,7 +14,9 @@ const Popover: React.FC<Props> = ({
   haveSearch = false,
   searchPlaceholder,
   className,
+  popoverClass="",
 }) => {
+
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [open, setOpen] = useState(false);
@@ -33,11 +36,11 @@ const Popover: React.FC<Props> = ({
     >
       {defaultValue} <ChevronsUpDown className="size-4 text-dark-1" />{" "}
       <div
-        className={`popover absolute top-[55px] bg-white border border-solid left-0 w-full rounded-lg overflow-clip transition-all duration-300 ${
+        className={`absolute top-[55px] bg-white border border-solid left-0 w-full rounded-lg overflow-clip transition-all duration-300 ${
           open
             ? "-translate-y-0 opacity-1 visible"
             : "-translate-y-[10px] opacity-0 invisible"
-        }`}
+        } ${popoverClass}`}
         onClick={(e) => e.stopPropagation()}
       >
         {haveSearch && (

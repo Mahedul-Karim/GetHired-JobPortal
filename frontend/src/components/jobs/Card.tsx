@@ -57,7 +57,7 @@ const Card: React.FC<Props> = ({ className = "", style = {} }) => {
           </Button>
           <Button
             variant="outline"
-            className="!border-gray-0 text-gray-1 md:px-3 px-2"
+            className="xs:border-0 !border-gray-0 text-gray-1 md:px-3 px-2"
           >
             <Bookmark
               strokeWidth={1.5}
