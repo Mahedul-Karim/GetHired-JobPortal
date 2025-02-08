@@ -39,7 +39,7 @@ const Card: React.FC<Props> = ({ className = "", style = {} }) => {
         </div>
         <div>
           <Link
-            to={"#"}
+            to={"/jobs/fronted-developer"}
             className="text-dark-1 text-base xs:text-lg md:text-xl hover:text-gradient transition-all duration-500 font-semibold"
           >
             Backed Developer
