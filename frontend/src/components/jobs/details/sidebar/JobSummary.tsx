@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import IconBox from "./IconBox";
 import {
   CalendarDays,
@@ -9,8 +9,11 @@ import {
   UserRoundSearch,
 } from "lucide-react";
 import Button from "../../../ui/button/Button";
-
+import JobApplyModal from "../../../ui/modals/JobApplyModal";
 const JobSummary = () => {
+
+  const [open,setOpen] = useState(false);
+
   return (
     <article
       className="bg-white p-4 mt-8 rounded-lg"
@@ -44,10 +47,11 @@ const JobSummary = () => {
           description="Bachelor Degree"
         />
         <IconBox Icon={UserRoundSearch} title="Gender" description="Both" />
-        <Button className="my-4">
+        <Button className="my-4" onClick={()=>setOpen(true)}>
           Apply Now
         </Button>
       </section>
+      <JobApplyModal open={open} setOpen={setOpen}/>
     </article>
   );
 };

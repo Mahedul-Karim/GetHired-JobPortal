@@ -1,0 +1,89 @@
+import React from "react";
+import { MAX_FILE_UPLOAD_SIZE } from "../../../util/util";
+import { FolderUp } from "lucide-react";
+
+interface Props {
+  label?: string;
+  fileId: string | number;
+  fileType?: any;
+  uploadType: "pdf" | "image";
+}
+
+const Upload: React.FC<Props> = ({
+  label,
+  fileId,
+  fileType = "application/pdf",
+  uploadType,
+}) => {
+  const handleUploadedFile = (file: File) => {
+    if (uploadType === "pdf" && file.type.startsWith("image")) {
+      console.error("Please upload valid pdf type!!");
+      return;
+    }
+
+    if (!file.type.startsWith("image") && file.type !== fileType) {
+      console.error("Please provide a valid file type!!");
+      return;
+    }
+
+    let fileSize = "";
+
+    if (file.size >= 1024 * 1024) {
+      fileSize = `${(file.size / (1024 * 1024)).toFixed(2)}mb`;
+    } else {
+      fileSize = `${(file.size / 1024).toFixed(2)}kb`;
+    }
+
+    if (file.size > MAX_FILE_UPLOAD_SIZE) {
+      console.log("file is bigger then 10mb");
+    } else {
+      console.log(fileSize);
+    }
+  };
+
+  return (
+    <div className="relative">
+      {label && (
+        <label className="font-medium mb-1 inline-block text-dark-2">
+          {label}:
+        </label>
+      )}
+      <input
+        type="file"
+        name=""
+        id={`file-${fileId}`}
+        className="absolute top-0 left-0 hidden"
+        multiple
+      />
+      <label
+        htmlFor={`file-${fileId}`}
+        className="flex min-h-[170px] rounded-lg flex-col items-center justify-center cursor-pointer bg-primary-light-2 border border-dashed border-primary-light-0 gap-1"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => {
+          e.preventDefault();
+
+          const file = e.dataTransfer.files[0];
+
+          handleUploadedFile(file);
+        }}
+      >
+        <div className="bg-primary rounded-full p-2">
+          <FolderUp className="text-white" />
+        </div>
+        <p className="text-sm text-dark-2 font-medium text-center">
+          <span className="text-primary">Click Here</span> to upload file or
+          drag and drop
+        </p>
+        <p className="text-sm font-medium text-gray-500">
+          Maximum file size: {MAX_FILE_UPLOAD_SIZE / (1024 * 1024)}mb
+        </p>
+      </label>
+      <div className="my-2 flex items-center justify-between text-gray-700 font-medium">
+        <p>resume.pdf</p>
+        <p>(10mb)</p>
+      </div>
+    </div>
+  );
+};
+
+export default Upload;
