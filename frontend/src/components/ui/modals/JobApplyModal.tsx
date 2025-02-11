@@ -34,7 +34,7 @@ const JobApplyModal: React.FC<Props> = ({ open, setOpen }) => {
           Icon={ReceiptText}
         />
         <Upload label="Upload Resume" fileId={'resume'} uploadType="pdf"/>
-        <Button>Apply Now</Button>
+        <Button type="submit">Apply Now</Button>
       </form>
     </Modal>
   );

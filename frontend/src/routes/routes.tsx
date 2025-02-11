@@ -7,6 +7,7 @@ import ErrorBoundary from "../util/ErrorBoundary";
 import ErrorsFallback from "../components/errors/ErrorsFallback";
 import BoundaryWrapper from "./BoundaryWrapper";
 import JobDetails from "../pages/jobs/details/JobDetails";
+import Blog from "../pages/blogs/Blog";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ export const router = createBrowserRouter([
         element: (
           <BoundaryWrapper>
             <JobDetails />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path: "blog",
+        element: (
+          <BoundaryWrapper>
+            <Blog />
           </BoundaryWrapper>
         ),
       },

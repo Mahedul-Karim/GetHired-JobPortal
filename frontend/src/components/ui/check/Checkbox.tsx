@@ -19,17 +19,7 @@ const Checkbox: React.FC<Props> = ({ checkId, value, label }) => {
             </svg>
           </span>
         </label>
-        {/* <input
-          type="checkbox"
-          id={checkId}
-          className="absolute size-5 opacity-0 cursor-pointer"
-          value={value}
-        />
-        <div
-          className={`size-4 border border-solid border-gray-1 cursor-pointer rounded-full flex items-center justify-center`}
-        >
-          <Check className="size-3 text-primary invisible" strokeWidth={2.5} />
-        </div> */}
+        
       </div>
       <label htmlFor={checkId} className="cursor-pointer">
         {label}
