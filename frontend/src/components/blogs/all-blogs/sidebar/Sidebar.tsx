@@ -6,7 +6,7 @@ import RecentBlogs from "./RecentBlogs";
 
 const Sidebar = () => {
   return (
-    <aside className="bg-primary-light-1 rounded-lg px-6 py-4 flex flex-col gap-4">
+    <aside className="bg-primary-light-1 rounded-lg px-6 py-4 flex flex-col gap-4 h-max">
       <Search
         placeholder="Search blogs"
         Icon={SearchIcon}
