@@ -8,15 +8,36 @@ const Category = () => {
       <div>
         <Heading>Category</Heading>
         <div className="my-3 space-y-2">
-          <Checkbox checkId="category-0" value="all" label="All" />
-          <Checkbox checkId="category-1" value="career" label="Career" />
           <Checkbox
+            name="blog-category"
+            checkId="category-0"
+            value="all"
+            label="All"
+          />
+          <Checkbox
+            name="blog-category"
+            checkId="category-1"
+            value="career"
+            label="Career"
+          />
+          <Checkbox
+            name="blog-category"
             checkId="category-2"
             value="information"
             label="Information"
           />
-          <Checkbox checkId="category-3" value="jobs" label="Jobs" />
-          <Checkbox checkId="category-4" value="news" label="News" />
+          <Checkbox
+            name="blog-category"
+            checkId="category-3"
+            value="jobs"
+            label="Jobs"
+          />
+          <Checkbox
+            name="blog-category"
+            checkId="category-4"
+            value="news"
+            label="News"
+          />
         </div>
       </div>
     </div>

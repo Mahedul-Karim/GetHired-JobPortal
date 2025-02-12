@@ -8,6 +8,7 @@ import ErrorsFallback from "../components/errors/ErrorsFallback";
 import BoundaryWrapper from "./BoundaryWrapper";
 import JobDetails from "../pages/jobs/details/JobDetails";
 import Blog from "../pages/blogs/Blog";
+import BlogDetails from "../pages/blogs/details/BlogDetails";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ export const router = createBrowserRouter([
         element: (
           <BoundaryWrapper>
             <Blog />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path: "blog/:slug",
+        element: (
+          <BoundaryWrapper>
+            <BlogDetails />
           </BoundaryWrapper>
         ),
       },

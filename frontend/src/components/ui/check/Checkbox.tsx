@@ -5,13 +5,14 @@ interface Props {
   checkId: string;
   value: string;
   label: string;
+  name:string;
 }
 
-const Checkbox: React.FC<Props> = ({ checkId, value, label }) => {
+const Checkbox: React.FC<Props> = ({ checkId, value, label,name }) => {
   return (
     <div className="flex items-center text-base text-gray-1 gap-3">
       <div className="flex items-center checkbox-wrapper-46">
-        <input type="checkbox" id={checkId} className="inp-cbx" value={value}/>
+        <input type="radio" name={name} id={checkId} className="inp-cbx" value={value}/>
         <label htmlFor={checkId} className="cbx">
           <span >
             <svg viewBox="0 0 12 10" className="size-2.5">
