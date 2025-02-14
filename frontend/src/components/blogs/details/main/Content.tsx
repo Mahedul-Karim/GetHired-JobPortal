@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 
-import Prism from 'prismjs';
+import styles from "./content.module.css";
 
-import 'prismjs/themes/prism-tomorrow.css';
+import Prism from "prismjs";
+
+import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-c";
@@ -26,11 +28,8 @@ import "prismjs/components/prism-mongodb";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-
-
 const Content = () => {
-
-  const text= `<p><strong>This is bold text.</strong></p>
+  const text = `<p><strong>This is bold text.</strong></p>
 <ul>
   <li>Bullet point 1</li>
   <li>Bullet point 2</li>
@@ -87,16 +86,18 @@ console.log(x);
   }
 }
 export default App;</code></pre>
-        `
-  
+        `;
+
   useEffect(() => {
-    
     Prism.highlightAll();
   }, []);
 
   return (
-    <section className="mt-8" >
-      <div className="blog-details" dangerouslySetInnerHTML={{__html:text}}></div>
+    <section className="mt-8">
+      <div
+        className={styles["blog-details"]}
+        dangerouslySetInnerHTML={{ __html: text }}
+      ></div>
     </section>
   );
 };

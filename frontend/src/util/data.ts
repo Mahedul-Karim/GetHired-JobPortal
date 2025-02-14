@@ -16,8 +16,8 @@ export const NAV_DATA = [
   },
   {
     id: 4,
-    label: "About",
-    to: "/about",
+    label: "About Us",
+    to: "/about-us",
   },
 ];
 

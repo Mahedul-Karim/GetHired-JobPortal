@@ -9,6 +9,7 @@ import BoundaryWrapper from "./BoundaryWrapper";
 import JobDetails from "../pages/jobs/details/JobDetails";
 import Blog from "../pages/blogs/Blog";
 import BlogDetails from "../pages/blogs/details/BlogDetails";
+import AboutUs from "../pages/about-us/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ export const router = createBrowserRouter([
         element: (
           <BoundaryWrapper>
             <BlogDetails />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path: "about-us",
+        element: (
+          <BoundaryWrapper>
+            <AboutUs />
           </BoundaryWrapper>
         ),
       },

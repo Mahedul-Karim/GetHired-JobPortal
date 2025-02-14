@@ -1,0 +1,46 @@
+.blog-details pre {
+  border-radius: 10px;
+}
+
+.blog-details a {
+  color: var(--primary);
+  text-decoration: underline var(--primary);
+  font-size: 18px;
+}
+
+.blog-details blockquote {
+  background-color: var(--primary-light-2);
+  padding: 20px;
+  border-radius: 10px;
+  margin-block: 20px;
+  font-style: italic;
+}
+
+.blog-details blockquote > p::before {
+  content: '"';
+}
+.blog-details blockquote > p::after {
+  content: '"';
+}
+
+.blog-details p,
+.blog-details ul,
+.blog-details ol {
+  font-size: 18px;
+  color: var(--dark-1);
+}
+
+.blog-details ul,
+.blog-details ol {
+  margin-block: 20px;
+  margin-left: 10%;
+}
+
+.blog-details ol li {
+  list-style: decimal inside;
+}
+
+.blog-details ul li {
+  list-style-position: inside;
+  list-style-type: disc;
+}
