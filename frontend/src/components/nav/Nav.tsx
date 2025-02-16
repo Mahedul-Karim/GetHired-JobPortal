@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { NAV_DATA } from "../../util/data";
 import Avatar from "../ui/Avatar";
 import Button from "../ui/button/Button";
@@ -9,6 +9,7 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 
 const Nav: React.FC<Props> = ({ className, onClick }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -42,6 +43,7 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
         {/* <Avatar /> */}
         <Button
           onClick={() => {
+            navigate('/login');
             if (!onClick) return;
 
             onClick(false);

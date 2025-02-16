@@ -15,7 +15,7 @@ const Input: React.FC<Props> = ({ Icon, label, placeholder,type,...props }) => {
         {Icon && <Icon className="text-primary" />}
         <input
           type={type}
-          className="bg-transparent w-full placeholder:text-gray-1 placeholder:text-sm focus:outline-none font-medium"
+          className="bg-transparent w-full placeholder:text-gray-1 placeholder:text-sm focus:outline-none "
           placeholder={placeholder}
           {...props}
         />

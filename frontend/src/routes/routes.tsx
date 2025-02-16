@@ -10,6 +10,7 @@ import JobDetails from "../pages/jobs/details/JobDetails";
 import Blog from "../pages/blogs/Blog";
 import BlogDetails from "../pages/blogs/details/BlogDetails";
 import AboutUs from "../pages/about-us/AboutUs";
+import Login from "../pages/auth/login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -66,5 +67,13 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/login",
+    element: (
+      <BoundaryWrapper>
+        <Login />
+      </BoundaryWrapper>
+    ),
   },
 ]);

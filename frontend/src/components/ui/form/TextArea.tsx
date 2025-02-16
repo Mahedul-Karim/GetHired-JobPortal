@@ -19,7 +19,7 @@ const TextArea: React.FC<Props> = ({ Icon, label, placeholder,...props }) => {
         {Icon && <Icon className="text-primary" />}
         <textarea
           rows={4}
-          className="bg-transparent w-full placeholder:text-gray-1 placeholder:text-sm focus:outline-none font-medium"
+          className="bg-transparent w-full placeholder:text-gray-1 placeholder:text-sm focus:outline-none"
           placeholder={placeholder}
           {...props}
         />

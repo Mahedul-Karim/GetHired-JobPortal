@@ -6,7 +6,7 @@ const Keywords = () => {
   return (
     <div>
       <Heading>Keywords</Heading>
-      <div className="my-3 p-3 bg-white rounded-lg w-full font-medium text-gray-1 flex items-center justify-between">
+      <div className="my-3 p-3 bg-white rounded-lg w-full text-gray-1 flex items-center justify-between">
         <input
           type="text"
           className="bg-white text-sm focus:outline-none "
