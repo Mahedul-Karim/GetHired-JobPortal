@@ -11,6 +11,8 @@ import Blog from "../pages/blogs/Blog";
 import BlogDetails from "../pages/blogs/details/BlogDetails";
 import AboutUs from "../pages/about-us/AboutUs";
 import Login from "../pages/auth/login/Login";
+import SignUp from "../pages/auth/sign-up/SignUp";
+import Otp from "../pages/auth/otp/Otp";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +75,22 @@ export const router = createBrowserRouter([
     element: (
       <BoundaryWrapper>
         <Login />
+      </BoundaryWrapper>
+    ),
+  },
+  {
+    path: "/sign-up",
+    element: (
+      <BoundaryWrapper>
+        <SignUp />
+      </BoundaryWrapper>
+    ),
+  },
+  {
+    path: "/otp",
+    element: (
+      <BoundaryWrapper>
+        <Otp />
       </BoundaryWrapper>
     ),
   },
