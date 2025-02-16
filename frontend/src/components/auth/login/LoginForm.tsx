@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 const LoginForm = () => {
   return (
-    <div className="mt-8 h-[60%] flex flex-col justify-center">
+    <div className="mt-8 min-h-[60%] flex flex-col justify-center">
       <h2 className="text-2xl font-medium text-center text-dark-0">Login</h2>
       <form className="mt-8 space-y-4 px-4 lg:px-8">
         <Input placeholder="Email Address" rounded/>

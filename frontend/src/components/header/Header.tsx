@@ -15,6 +15,8 @@ const Header = () => {
   const { observeSections } = useIntersectionObserver({
     threshold: 0,
     action: (element, isIntersecting) => {
+      if (!containerRef.current) return;
+
       if (!isIntersecting) {
         containerRef.current!.classList.add("stickyNav");
       } else {
@@ -35,7 +37,12 @@ const Header = () => {
         ref={sentinelRef}
         className="h-[64px] absolute top-0 left-0 w-full -z-[1] pointer-events-none"
       />
-      <section className={`absolute top-0 left-0 w-full ${location.pathname === '/' ? 'bg-none' : 'bg-white'}`} ref={containerRef}>
+      <section
+        className={`absolute top-0 left-0 w-full ${
+          location.pathname === "/" ? "bg-none" : "bg-white"
+        }`}
+        ref={containerRef}
+      >
         <Container
           as="nav"
           className={`flex items-center justify-between py-3`}

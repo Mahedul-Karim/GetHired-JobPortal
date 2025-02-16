@@ -10,7 +10,7 @@ const SignUpForm = () => {
   const bgRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <div className="mt-8 h-[60%] flex flex-col justify-center">
+    <div className="mt-8 min-h-[60%] flex flex-col justify-center">
       <h2 className="text-2xl font-medium text-center text-dark-0">
         Create Account
       </h2>
