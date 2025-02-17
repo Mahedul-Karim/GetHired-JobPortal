@@ -14,6 +14,7 @@ export default {
           0: "var(--primary-light)",
           1: "var(--primary-light-1)",
           2: "var(--primary-light-2)",
+          3: "var(--primary-light-3)",
         },
         gray: {
           0: "var(--gray-0)",
