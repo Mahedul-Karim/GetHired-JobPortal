@@ -15,7 +15,7 @@ const TextArea: React.FC<Props> = ({ Icon, label, placeholder,...props }) => {
           {label}:
         </label>
       )}
-      <div className={`flex bg-primary-light-2 px-4 py-3 rounded-lg gap-2`}>
+      <div className={`flex bg-[#d4e6ff]/[0.4] px-4 py-3 rounded-lg gap-2`}>
         {Icon && <Icon className="text-primary" />}
         <textarea
           rows={4}

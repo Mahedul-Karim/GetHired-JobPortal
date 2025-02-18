@@ -8,7 +8,7 @@ interface Props {
 const NotificationItem: React.FC<Props> = ({ Icon }) => {
   return (
     <figure className="flex items-center justify-between gap-2 py-4 border-b border-solid ">
-      <div className="flex  gap-3">
+      <div className="flex items-start gap-3">
         <Icon className="size-5 text-green-700 shrink-0" />
         <p>
           Nikola tesla sent you a{" "}
