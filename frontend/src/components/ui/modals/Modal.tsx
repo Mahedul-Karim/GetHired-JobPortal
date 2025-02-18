@@ -8,7 +8,7 @@ interface Props {
   modalTitle?: string;
   children: React.ReactNode;
   open: boolean;
-  setOpen: (val: boolean) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Modal: React.FC<Props> = ({

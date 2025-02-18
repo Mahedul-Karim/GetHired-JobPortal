@@ -9,7 +9,7 @@ import Button from "../button/Button";
 
 interface Props {
   open: boolean;
-  setOpen: (val: boolean) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const JobApplyModal: React.FC<Props> = ({ open, setOpen }) => {
@@ -29,8 +29,8 @@ const JobApplyModal: React.FC<Props> = ({ open, setOpen }) => {
           type="text"
         />
         <TextArea
-          placeholder="Write briefly about yourself"
-          label="About Yourself"
+          placeholder="Write a nice cover letter"
+          label="Cover letter"
           Icon={ReceiptText}
         />
         <Upload label="Upload Resume" fileId={'resume'} uploadType="pdf"/>

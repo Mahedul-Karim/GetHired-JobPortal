@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router";
-import Sidebar from "../dashboard/common/Sidebar";
+import Sidebar from "../../components/dashboard/common/Sidebar";
 import Container from "../../components/layout/Container";
-import Header from "../dashboard/common/Header";
+import Header from "../../components/dashboard/common/Header";
 
 import {
   LayoutDashboard,
@@ -12,8 +12,9 @@ import {
   FilePlus2,
   SquareChartGantt,
   Bell,
-  MessageCircle
+  MessageCircle,
 } from "lucide-react";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 const USER_SIDEBAR = [
   {
@@ -59,13 +60,19 @@ const USER_SIDEBAR = [
 ];
 
 const UserLayout = () => {
-  const [open, setOpen] = useState(true);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  const [open, setOpen] = useState(isDesktop);
   const [runAnimation, setRunAnimation] = useState(false);
+
+  useEffect(() => {
+    setOpen(isDesktop);
+  }, [isDesktop]);
 
   return (
     <main
-      className={`grid grid-cols-[260px_1fr] h-screen overflow-clip ${
-        !open ? "-ml-[260px]" : "ml-0"
+      className={`grid grid-cols-[200px_1fr] xs:grid-cols-[260px_1fr] h-screen overflow-clip ${
+        !open ? "-ml-[200px] xs:-ml-[260px]" : "ml-0"
       } transition-all duration-500`}
     >
       <Sidebar navItems={USER_SIDEBAR} />
@@ -76,7 +83,7 @@ const UserLayout = () => {
           runAnimation={runAnimation}
           setRunAnimation={setRunAnimation}
         />
-        <div className="h-[calc(100vh_-_70px)] overflow-auto showScrollbar">
+        <div className="h-[calc(100vh_-_70px)] overflow-y-auto overflow-x-clip showScrollbar">
           <Container className="p-4 bg-[#f3f2fc96] rounded-lg mt-4">
             <Outlet />
           </Container>
