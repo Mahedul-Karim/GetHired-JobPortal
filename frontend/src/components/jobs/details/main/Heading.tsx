@@ -12,7 +12,7 @@ const Heading = () => {
         <MapPin className="size-[16px]" /> 363-1385 Sunset Blvd Los Angeles, CA
         90026, USA
       </p>
-      <h2 className="font-semibold sm:text-base text-sm text-[rgb(23_23_29)]">
+      <h2 className="font-medium sm:text-base text-sm text-[rgb(23_23_29)]">
         $2000 - $2500<span className="text-sm text-primary"> / month</span>
       </h2>
     </section>

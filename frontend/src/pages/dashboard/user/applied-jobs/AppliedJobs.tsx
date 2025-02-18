@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
+import Popover from "../../../../components/ui/popover/Popover";
+import Badge from "../../../../components/ui/Badge";
+import JobList from "../../../../components/dashboard/user/applied-jobs/JobList";
 
 const AppliedJobs = () => {
   return (
-    <div>AppliedJobs</div>
-  )
-}
+    <>
+      <div className="flex items-center ml-auto max-w-[250px] gap-4">
+        <p className="text-dark-2 font-medium whitespace-nowrap">Sort by:</p>{" "}
+        <Popover defaultValue="Most Recent"></Popover>
+      </div>
+      <div className="mt-6 space-y-6">
+        <JobList />
+        <JobList />
+        <JobList />
+        <JobList />
+        <JobList />
+      </div>
+    </>
+  );
+};
 
-export default AppliedJobs
+export default AppliedJobs;
