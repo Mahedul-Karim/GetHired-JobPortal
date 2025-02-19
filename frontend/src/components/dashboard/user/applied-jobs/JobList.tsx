@@ -2,7 +2,12 @@ import React from "react";
 import Badge from "../../../ui/Badge";
 import { Link } from "react-router";
 
-const JobList = () => {
+
+interface Props{
+  applied?:boolean;
+}
+
+const JobList:React.FC<Props> = ({applied=true}) => {
   return (
     <figure className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-2 justify-between bg-white rounded-lg p-4">
       <div className="flex items-center gap-4">
@@ -26,10 +31,10 @@ const JobList = () => {
           <p className="hidden xs:block text-xs sm:text-sm text-gray-500">
             1363-1385 Sunset Blvd Los Angeles, CA 90026, USA
           </p>
-          <p className="text-xs sm:text-sm text-gray-500">
+          {applied && <p className="text-xs sm:text-sm text-gray-500">
             Applied at:{" "}
             <span className="font-medium text-primary">20 Aug, 2025</span>
-          </p>
+          </p>}
         </div>
       </div>
       <div className="self-stretch flex flex-row items-center xs:items-stretch sm:flex-col justify-between">
