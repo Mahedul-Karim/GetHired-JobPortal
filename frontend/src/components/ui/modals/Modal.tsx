@@ -28,7 +28,7 @@ const Modal: React.FC<Props> = ({
     >
       <div
         className={`max-h-[80vh] overflow-y-auto overflow-x-clip bg-white w-full max-w-[500px] rounded-lg showScrollbar transition-all duration-500 ${modalClass} ${
-          open ? "opacity-1 translate-y-0" : "-translate-y-2.5 opacity-0"
+          open ? "opacity-100 translate-y-0" : "-translate-y-2.5 opacity-0"
         }`}
         onClick={(e)=>e.stopPropagation()}
       >

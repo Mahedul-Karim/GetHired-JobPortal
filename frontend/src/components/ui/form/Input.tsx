@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       Icon,
       label,
       placeholder,
-      type,
+      type="text",
       rounded = false,
       containerClass = "",
       centerInput = false,
@@ -42,7 +42,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           {Icon && <Icon className="text-primary" />}
           <input
             type={type}
-            className="bg-transparent w-full placeholder:text-gray-1 placeholder:text-sm focus:outline-none "
+            className="bg-transparent w-full text-gray-1 placeholder:text-gray-1 placeholder:text-sm focus:outline-none "
             placeholder={placeholder}
             disabled={disabled}
             ref={ref as React.Ref<HTMLInputElement> | undefined}

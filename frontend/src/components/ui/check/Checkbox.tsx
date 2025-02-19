@@ -2,14 +2,20 @@ import { Check } from "lucide-react";
 import React from "react";
 import styles from "./checkbox.module.css";
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   checkId: string;
   value: string;
   label: string;
   name: string;
 }
 
-const Checkbox: React.FC<Props> = ({ checkId, value, label, name }) => {
+const Checkbox: React.FC<Props> = ({
+  checkId,
+  value,
+  label,
+  name,
+  ...props
+}) => {
   return (
     <div className="flex items-center text-base text-gray-1 gap-3">
       <div className={`flex items-center ${styles["checkbox-wrapper-46"]}`}>
@@ -19,6 +25,7 @@ const Checkbox: React.FC<Props> = ({ checkId, value, label, name }) => {
           id={checkId}
           className={`${styles["inp-cbx"]}`}
           value={value}
+          {...props}
         />
         <label htmlFor={checkId} className={styles.cbx}>
           <span>

@@ -13,10 +13,11 @@ import {
   Building2,
   Milestone,
   MapPin,
-  ListCollapse
+  ListCollapse,
 } from "lucide-react";
 import TextArea from "../../../ui/form/TextArea";
 import Button from "../../../ui/button/Button";
+import Checkbox from "../../../ui/check/Checkbox";
 
 const Info = () => {
   return (
@@ -69,9 +70,24 @@ const Info = () => {
           <Input placeholder="City" Icon={Building2} />
           <Input placeholder="Post Code" Icon={Milestone} />
         </div>
-          <Input placeholder="Full Address" Icon={MapPin} />
-          <TextArea placeholder="Your Bio" Icon={ListCollapse} />
-          <Button>Save Changes</Button>
+        <div>
+          <label className="font-medium mb-1 inline-block text-dark-2">
+            Gender:
+          </label>
+          <div className="flex items-center gap-4">
+            <Checkbox name="gender" checkId="male" value="male" label="Male" />
+            <Checkbox
+              name="gender"
+              checkId="female"
+              value="female"
+              label="Female"
+            />
+          </div>
+        </div>
+        <Input placeholder="Date of birth" type="date" Icon={Calendar} />
+        <Input placeholder="Full Address" Icon={MapPin} />
+        <TextArea placeholder="Your Bio" Icon={ListCollapse} />
+        <Button>Save Changes</Button>
       </form>
     </div>
   );
