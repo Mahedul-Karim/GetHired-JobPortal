@@ -47,14 +47,14 @@ const Sidebar: React.FC<Props> = ({
               <Link
                 to={nav.to}
                 className={`flex items-center gap-2 h-full w-full  transition-all duration-500 group-hover:text-primary ${
-                  location.pathname === nav.to ? "text-primary" : "text-dark-2"
+                  location.pathname === nav.to ? "text-primary" : "text-gray-1"
                 } `}
               >
                 <nav.Icon
                   className={`size-5 transition-all duration-500 group-hover:text-primary ${
                     location.pathname === nav.to
                       ? "text-primary"
-                      : "text-dark-2"
+                      : "text-gray-1"
                   }`}
                   strokeWidth={1.7}
                 />

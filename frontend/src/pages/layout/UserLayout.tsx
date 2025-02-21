@@ -47,11 +47,11 @@ const USER_SIDEBAR = [
     Icon: SquareChartGantt,
     label: "CV Manager",
   },
-  {
-    to: "/user/dashboard/job-alert",
-    Icon: Bell,
-    label: "job Alert",
-  },
+  // {
+  //   to: "/user/dashboard/job-alert",
+  //   Icon: Bell,
+  //   label: "job Alert",
+  // },
   {
     to: "/user/dashboard/chat",
     Icon: MessageCircle,
