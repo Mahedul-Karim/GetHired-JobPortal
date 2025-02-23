@@ -1,11 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router";
 import { CornerDownRight } from "lucide-react";
 
 interface Props {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header: React.FC<Props> = ({ setOpen }) => {
+
   return (
     <header className="h-[74px] bg-[#d4e6ff]/[0.4] flex items-center justify-between px-2 xs:px-4 gap-2">
       <div className="flex items-center gap-2 xs:gap-4">
@@ -23,11 +25,19 @@ const Header: React.FC<Props> = ({ setOpen }) => {
           <p className="text-xs xs:text-sm text-gray-1">Active Now</p>
         </div>
       </div>
-      <div>
-        <button onClick={() => setOpen(false)}>
-          <CornerDownRight className="xs:size-6 size-5 text-primary"/>
-        </button>
-      </div>
+      {setOpen && (
+        <div>
+          <button
+            onClick={() => {
+              if (setOpen) {
+                setOpen(false);
+              }
+            }}
+          >
+            <CornerDownRight className="xs:size-6 size-5 text-primary" />
+          </button>
+        </div>
+      )}
     </header>
   );
 };

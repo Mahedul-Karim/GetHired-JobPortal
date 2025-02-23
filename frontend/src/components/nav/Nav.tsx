@@ -43,7 +43,8 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
         {/* <Avatar /> */}
         <Button
           onClick={() => {
-            navigate('/user/dashboard');
+            // navigate('/user/dashboard');
+            navigate('/user/hello');
             // navigate('/login');
             if (!onClick) return;
 

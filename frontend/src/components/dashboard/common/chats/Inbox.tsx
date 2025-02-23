@@ -5,7 +5,7 @@ import MessageInput from "./inbox/MessageInput";
 import Messages from "./inbox/Messages";
 
 interface Props {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Inbox: React.FC<Props> = ({ setOpen }) => {

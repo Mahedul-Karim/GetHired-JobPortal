@@ -1,15 +1,11 @@
 import React from "react";
-import Requirements from "./Requirements";
-import Responsibilities from "./Responsibilities";
-import Location from "./Location";
+import Heading from "./Heading";
 
 const Description = () => {
   return (
     <>
-      <h3 className="text-base sm:text-lg font-semibold text-black my-4">
-        Job Description:
-      </h3>
-      <p className="sm:text-base text-sm text-dark-1 !leading-[30px]">
+      <Heading>About Me</Heading>
+      <p className="sm:text-base text-sm text-dark-1 mt-2 !leading-[30px]">
         Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
         suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
         autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
@@ -20,9 +16,6 @@ const Description = () => {
         cupiditate non provident, similique sunt in culpa qui officia deserunt
         mollitia animi.
       </p>
-      <Requirements />
-      <Responsibilities />
-      <Location />
     </>
   );
 };

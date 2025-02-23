@@ -3,6 +3,7 @@ import Input from "../../form/Input";
 import Modal from "../Modal";
 import Button from "../../button/Button";
 import Checkbox from "../../check/Checkbox";
+import TextArea from "../../form/TextArea";
 
 interface Props {
   open: boolean;
@@ -17,6 +18,7 @@ const ExperienceModal: React.FC<Props> = ({ open, setOpen }) => {
       <form className="space-y-4">
         <Input placeholder="Enter your position" label="Working Title" />
         <Input placeholder="Enter your company name" label="Company" />
+        <Input placeholder="Worked or Working for(number in years)" label="Experience" type="number"/>
         <div>
           <label className="font-medium mb-1 inline-block text-dark-2">
             Currently Working Here?
@@ -40,11 +42,21 @@ const ExperienceModal: React.FC<Props> = ({ open, setOpen }) => {
             />
           </div>
           <div className="flex flex-col xs:flex-row xs:items-center gap-4 mt-4">
-            <Input placeholder="" label="Working From" type="date" containerClass="w-full"/>
-            <Input placeholder="" label="Worked Till" type="date" containerClass="w-full"/>
+            <Input
+              placeholder=""
+              label="Working From"
+              type="date"
+              containerClass="w-full"
+            />
+            <Input
+              placeholder=""
+              label="Worked Till"
+              type="date"
+              containerClass="w-full"
+            />
           </div>
         </div>
-
+        <TextArea placeholder="Extra Description" label="Write Description(optional)"/>
         <Button>Submit</Button>
       </form>
     </Modal>

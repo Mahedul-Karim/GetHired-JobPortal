@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Logo from "../../ui/Logo";
 import { Link, useLocation } from "react-router";
 import { LucideIcon } from "lucide-react";
@@ -11,10 +11,9 @@ interface Props {
   }>;
 }
 
-const Sidebar: React.FC<Props> = ({
-  navItems
-}) => {
+const Sidebar: React.FC<Props> = ({ navItems }) => {
   const bgRef = useRef<HTMLDivElement | null>(null);
+  const navRef = useRef<(HTMLAnchorElement | null)[]>([null]);
 
   const location = useLocation();
 
@@ -24,8 +23,18 @@ const Sidebar: React.FC<Props> = ({
     if (bgRef.current) {
       bgRef.current.style.top = `${e.currentTarget.offsetTop}px`;
     }
-
   };
+
+  useEffect(() => {
+    for (const elem of navRef.current) {
+      if (!elem) continue;
+      
+      if (elem.classList.contains("activeNav") && bgRef.current) {
+        bgRef.current.style.top = `${elem.offsetTop}px`;
+        break;
+      }
+    }
+  }, []);
 
   return (
     <aside className="h-full bg-primary-light-3 overflow-auto showScrollbar p-6">
@@ -47,8 +56,11 @@ const Sidebar: React.FC<Props> = ({
               <Link
                 to={nav.to}
                 className={`flex items-center gap-2 h-full w-full  transition-all duration-500 group-hover:text-primary ${
-                  location.pathname === nav.to ? "text-primary" : "text-gray-1"
+                  location.pathname === nav.to
+                    ? "text-primary activeNav"
+                    : "text-gray-1"
                 } `}
+                ref={(elem) => navRef.current.push(elem)}
               >
                 <nav.Icon
                   className={`size-5 transition-all duration-500 group-hover:text-primary ${

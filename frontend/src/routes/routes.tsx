@@ -21,6 +21,7 @@ import SavedJobs from "../pages/dashboard/user/saved-jobs/SavedJobs";
 import CvManager from "../pages/dashboard/user/cv-manager/CvManager";
 import JobAlert from "../pages/dashboard/user/job-alert/JobAlert";
 import Chat from "../pages/dashboard/user/chat/Chat";
+import UserDetails from "../pages/dashboard/user/details/UserDetails";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ export const router = createBrowserRouter([
         element: (
           <BoundaryWrapper>
             <AboutUs />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path: "user/:userId",
+        element: (
+          <BoundaryWrapper>
+            <UserDetails />
           </BoundaryWrapper>
         ),
       },
