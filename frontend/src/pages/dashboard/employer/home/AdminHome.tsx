@@ -1,13 +1,21 @@
 import React from "react";
-
-import { Pin, UsersRound, FileUser, MailPlus, ChartColumn,BellRing, UserRoundPen } from "lucide-react";
 import StateCard from "../../../../components/dashboard/common/StateCard";
-import Heading from "../../../../components/dashboard/common/Heading";
-import ActivityChart from "../../../../components/dashboard/user/home/ActivityChart";
+import {
+  NotebookText,
+  UserRoundPen,
+  UsersRound,
+  Eye,
+  BellRing,
+  ReceiptText,
+  ChartColumn,
+} from "lucide-react";
 import Section from "../../../../components/dashboard/common/Section";
+import Heading from "../../../../components/dashboard/common/Heading";
 import Notifications from "../../../../components/dashboard/user/home/Notifications";
+import ApplicantChart from "../../../../components/dashboard/employer/home/ApplicantChart";
+import RecentApplicants from "../../../../components/dashboard/employer/home/RecentApplicants";
 
-const UserHome = () => {
+const AdminHome = () => {
   return (
     <>
       <p className="xs:text-lg">
@@ -19,15 +27,15 @@ const UserHome = () => {
       <section className="mt-8 grid xs:grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4">
         <StateCard
           gradientType={1}
-          Icon={UsersRound}
+          Icon={NotebookText}
           value="25"
-          label="visitor"
+          label="Jobs Posted"
         />
         <StateCard
           gradientType={2}
-          Icon={FileUser}
+          Icon={UsersRound}
           value="2500"
-          label="Jobs Applied"
+          label="Applicants"
         />
         <StateCard
           gradientType={3}
@@ -35,18 +43,27 @@ const UserHome = () => {
           value="25%"
           label="Profile Completed"
         />
-        <StateCard gradientType={4} Icon={Pin} value="25" label="Saved Jobs" />
+        <StateCard
+          gradientType={4}
+          Icon={Eye}
+          value="25"
+          label="Total viewed"
+        />
       </section>
       <Section>
-        <Heading Icon={ChartColumn}>State Chart</Heading>
-        <ActivityChart />
+        <Heading Icon={ChartColumn}>Applicant State</Heading>
+        <ApplicantChart />
       </Section>
       <Section>
         <Heading Icon={BellRing}>Recent Notifications</Heading>
         <Notifications />
       </Section>
+      <Section>
+        <Heading Icon={ReceiptText}>Recent Applicants</Heading>
+        <RecentApplicants />
+      </Section>
     </>
   );
 };
 
-export default UserHome;
+export default AdminHome;

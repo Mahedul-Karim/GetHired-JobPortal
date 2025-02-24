@@ -44,7 +44,8 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
         <Button
           onClick={() => {
             // navigate('/user/dashboard');
-            navigate('/user/hello');
+            // navigate('/user/hello');
+            navigate('/admin/dashboard');
             // navigate('/login');
             if (!onClick) return;
 

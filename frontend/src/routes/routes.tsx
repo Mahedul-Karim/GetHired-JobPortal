@@ -3,7 +3,6 @@ import Layout from "../pages/layout/Layout";
 import Home from "../pages/home/Home";
 import Jobs from "../pages/jobs/Jobs";
 
-
 import BoundaryWrapper from "./BoundaryWrapper";
 import JobDetails from "../pages/jobs/details/JobDetails";
 import Blog from "../pages/blogs/Blog";
@@ -22,6 +21,15 @@ import CvManager from "../pages/dashboard/user/cv-manager/CvManager";
 import JobAlert from "../pages/dashboard/user/job-alert/JobAlert";
 import Chat from "../pages/dashboard/user/chat/Chat";
 import UserDetails from "../pages/dashboard/user/details/UserDetails";
+import AdminLayout from "../pages/layout/AdminLayout";
+import AdminHome from "../pages/dashboard/employer/home/AdminHome";
+import CompanyProfile from "../pages/dashboard/employer/profile/CompanyProfile";
+import CreateJobs from "../pages/dashboard/employer/jobs/create/CreateJobs";
+import ManageJobs from "../pages/dashboard/employer/jobs/manage/ManageJobs";
+import Candidates from "../pages/dashboard/employer/candidates/Candidates";
+import SavedResumes from "../pages/dashboard/employer/saved-resume/SavedResumes";
+import Chats from "../components/dashboard/common/chats/Chats";
+import EmployerChats from "../pages/dashboard/employer/chat/EmployerChats";
 
 export const router = createBrowserRouter([
   {
@@ -177,6 +185,68 @@ export const router = createBrowserRouter([
         element: (
           <BoundaryWrapper>
             <Chat />
+          </BoundaryWrapper>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/admin/dashboard",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <BoundaryWrapper>
+            <AdminHome />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path:'/admin/dashboard/profile',
+        element: (
+          <BoundaryWrapper>
+            <CompanyProfile />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path:'/admin/dashboard/post-job',
+        element: (
+          <BoundaryWrapper>
+            <CreateJobs />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path:'/admin/dashboard/manage-jobs',
+        element: (
+          <BoundaryWrapper>
+            <ManageJobs />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path:'/admin/dashboard/candidates',
+        element: (
+          <BoundaryWrapper>
+            <Candidates />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path:'/admin/dashboard/saved-resumes',
+        element: (
+          <BoundaryWrapper>
+            <SavedResumes />
+          </BoundaryWrapper>
+        ),
+      },
+      {
+        path:'/admin/dashboard/chat',
+        element: (
+          <BoundaryWrapper>
+            <EmployerChats />
           </BoundaryWrapper>
         ),
       },
