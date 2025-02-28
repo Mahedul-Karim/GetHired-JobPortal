@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
   TooltipProps,
+  LegendProps,
 } from "recharts";
 
 const data = [
@@ -69,6 +70,24 @@ const CustomToolTip = ({
   return null;
 };
 
+const RenderLegend: React.FC<LegendProps> = ({ payload }) => {
+  if (!payload) return null;
+
+  return (
+    <ul className="flex items-center justify-center gap-4">
+      {payload.map((entry, index) => (
+        <li key={`item-${index}`} className="flex items-center gap-2 text-primary">
+          <div
+            className="size-3 rounded-sm"
+            style={{ backgroundColor: `${entry.color}` }}
+          />
+          {entry.value}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 const ApplicantChart = () => {
   return (
     <div className="mt-6">
@@ -89,7 +108,7 @@ const ApplicantChart = () => {
               <CustomToolTip label={label} active={active} payload={payload} />
             )}
           />
-          <Legend />
+          <Legend content={<RenderLegend />} />
           <Bar dataKey="applied" fill="#5049e1" radius={[10, 10, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>

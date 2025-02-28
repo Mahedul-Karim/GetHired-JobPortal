@@ -9,7 +9,8 @@ const Applicant = () => {
         <img
           src="https://thewebmax.org/jobzilla/images/candidates/pic1.jpg"
           alt=""
-          className="size-12 xs:size-16 rounded-lg"
+          className="size-13 object-cover xs:size-16 rounded-lg"
+          loading="lazy"
         />
         <div className="flex flex-col gap-1">
           <h2 className="font-medium text-dark-2 text-sm xs:text-base">Wanda Montgomery</h2>

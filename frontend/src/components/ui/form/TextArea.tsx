@@ -1,13 +1,19 @@
 import { LucideIcon } from "lucide-react";
 import React from "react";
 
-interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement>{
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   Icon?: LucideIcon;
   label?: string;
   placeholder: string;
 }
 
-const TextArea: React.FC<Props> = ({ Icon, label, placeholder,...props }) => {
+const TextArea: React.FC<Props> = ({
+  Icon,
+  label,
+  placeholder,
+  disabled = false,
+  ...props
+}) => {
   return (
     <div>
       {label && (
@@ -15,12 +21,17 @@ const TextArea: React.FC<Props> = ({ Icon, label, placeholder,...props }) => {
           {label}:
         </label>
       )}
-      <div className={`flex bg-[#d4e6ff]/[0.4] px-4 py-3 rounded-lg gap-2`}>
+      <div
+        className={`flex ${
+          disabled ? "bg-[#F8F8F8]" : "bg-[#d4e6ff]/[0.4]"
+        }  px-4 py-3 rounded-lg gap-2`}
+      >
         {Icon && <Icon className="text-primary" />}
         <textarea
           rows={4}
           className="bg-transparent w-full text-gray-1 placeholder:text-gray-1 placeholder:text-sm focus:outline-none"
           placeholder={placeholder}
+          disabled={disabled}
           {...props}
         />
       </div>

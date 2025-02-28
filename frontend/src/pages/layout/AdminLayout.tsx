@@ -60,8 +60,8 @@ const AdminLayout = () => {
 
   return (
     <main
-      className={`grid grid-cols-[200px_1fr] xs:grid-cols-[260px_1fr] h-screen overflow-clip ${
-        !open ? "-ml-[200px] xs:-ml-[260px]" : "ml-0"
+      className={`grid grid-cols-[260px_1fr] h-screen overflow-clip ${
+        !open ? "-ml-[260px]" : "ml-0"
       } transition-all duration-500`}
     >
       <Sidebar navItems={ADMIN_SIDEBAR} />

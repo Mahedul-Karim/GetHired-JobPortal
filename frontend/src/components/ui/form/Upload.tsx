@@ -1,29 +1,23 @@
 import React from "react";
 import { MAX_FILE_UPLOAD_SIZE } from "../../../util/util";
-import { FolderUp } from "lucide-react";
+import { FolderUp, Trash2 } from "lucide-react";
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   fileId: string | number;
-  fileType?: any;
   uploadType: "pdf" | "image";
 }
 
-const Upload: React.FC<Props> = ({
-  label,
-  fileId,
-  fileType = "application/pdf",
-  uploadType,
-}) => {
+const Upload: React.FC<Props> = ({ label, fileId, uploadType, ...props }) => {
   const handleUploadedFile = (file: File) => {
     if (uploadType === "pdf" && file.type.startsWith("image")) {
       console.error("Please upload valid pdf type!!");
       return;
     }
 
-    if (!file.type.startsWith("image") && file.type !== fileType) {
+    if (uploadType === "image" && !file.type.startsWith("image")) {
       console.error("Please provide a valid file type!!");
-      return;
+      return ;
     }
 
     let fileSize = "";
@@ -36,8 +30,10 @@ const Upload: React.FC<Props> = ({
 
     if (file.size > MAX_FILE_UPLOAD_SIZE) {
       console.log("file is bigger then 10mb");
+      return;
     } else {
       console.log(fileSize);
+      return;
     }
   };
 
@@ -54,17 +50,20 @@ const Upload: React.FC<Props> = ({
         id={`file-${fileId}`}
         className="absolute top-0 left-0 hidden"
         multiple
+        {...props}
       />
       <label
         htmlFor={`file-${fileId}`}
-        className="flex min-h-[170px] rounded-lg flex-col items-center justify-center cursor-pointer bg-primary-light-2 border border-dashed border-primary-light-0 gap-1"
+        className="flex min-h-[170px] rounded-lg flex-col items-center justify-center cursor-pointer bg-[#d4e6ff]/[0.4] border border-dashed border-primary-light-0 gap-1"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           e.preventDefault();
 
           const file = e.dataTransfer.files[0];
 
-          handleUploadedFile(file);
+           handleUploadedFile(file);
+
+         
         }}
       >
         <div className="bg-primary rounded-full p-2">
@@ -78,10 +77,7 @@ const Upload: React.FC<Props> = ({
           Maximum file size: {MAX_FILE_UPLOAD_SIZE / (1024 * 1024)}mb
         </p>
       </label>
-      <div className="my-2 flex items-center justify-between text-gray-700 font-medium">
-        <p>resume.pdf</p>
-        <p>(10mb)</p>
-      </div>
+      
     </div>
   );
 };
