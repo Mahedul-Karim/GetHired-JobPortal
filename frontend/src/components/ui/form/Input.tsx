@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       Icon,
       label,
       placeholder,
-      type="text",
+      type = "text",
       rounded = false,
       containerClass = "",
       centerInput = false,
@@ -28,7 +28,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
     return (
       <div className={containerClass}>
         {label && (
-          <label className="font-medium mb-1 inline-block text-dark-2">
+          <label
+            className={`font-medium mb-1 text-sm inline-block text-dark-2`}
+          >
             {label}:
           </label>
         )}

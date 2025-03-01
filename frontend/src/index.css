@@ -41,6 +41,10 @@ body {
   font-family: "Rubik", sans-serif;
 }
 
+input[type="number"]::-webkit-inner-spin-button{
+  display: none;
+}
+
 .stickyNav {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);

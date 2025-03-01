@@ -17,7 +17,7 @@ const TextArea: React.FC<Props> = ({
   return (
     <div>
       {label && (
-        <label className="font-medium mb-1 inline-block text-dark-2">
+        <label className="font-medium text-sm mb-1 inline-block text-dark-2">
           {label}:
         </label>
       )}
