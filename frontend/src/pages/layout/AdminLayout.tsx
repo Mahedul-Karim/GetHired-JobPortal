@@ -41,11 +41,6 @@ const ADMIN_SIDEBAR = [
     label: "Manage Jobs",
   },
   {
-    to: "/admin/dashboard/saved-resumes",
-    Icon: Bookmark,
-    label: "Saved Resumes",
-  },
-  {
     to: "/admin/dashboard/chat",
     Icon: MessageCircle,
     label: "Chat",

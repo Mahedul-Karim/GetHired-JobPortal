@@ -1,16 +1,8 @@
-import {
-  CircleCheckBig,
-  EllipsisVertical,
-  MapPin,
-  Ban,
-  Eye,
-  FileUser,
-  Trash,
-} from "lucide-react";
 import React, { useRef, useState } from "react";
-import DotMenu from "../../../ui/DotMenu";
-import { useOutsideClick } from "../../../../hooks/useOutsideClick";
-import Badge from "../../common/Badge";
+import { useOutsideClick } from "../../../../../hooks/useOutsideClick";
+import { EllipsisVertical, MapPin } from "lucide-react";
+import Badge from "../../../common/Badge";
+import DotMenu from "../../../../ui/DotMenu";
 
 interface Props {
   setAbove?: boolean;
@@ -31,25 +23,28 @@ const TableRow: React.FC<Props> = ({ setAbove = false }) => {
   return (
     <tr>
       <td>
-        <div className="flex items-center gap-4">
-          <img
-            src="https://thewebmax.org/jobzilla/images/candidates/pic1.jpg"
-            alt=""
-            className="size-12 rounded-lg"
-          />
-          <div>
-            <h2 className="text-primary font-medium truncate">Wanda Montgomery</h2>
-            <p className="flex items-center gap-1 text-sm text-gray-1 mt-1">
-              <MapPin className="size-4" /> New York, USA
-            </p>
-          </div>
+        <div className="w-[200px]">
+          <h2 className="text-primary font-medium  whitespace-normal">
+            Frontend Developer
+          </h2>
+          <p className="flex gap-1 text-sm text-gray-1 mt-1 ">
+            <MapPin className="size-4 shrink-0" />{" "}
+            <span className="whitespace-normal">Munchen, Germany</span>
+          </p>
         </div>
       </td>
-      <td className="text-sm text-dark-1">UI Designer</td>
-      <td className="text-sm text-dark-1">15/06/2023</td>
+      <td className="text-dark-1 text-sm">Frontend Developer</td>
+      <td className="text-sm text-dark-1">
+        <Badge type="info">Full Time</Badge>
+      </td>
       <td>
-        <Badge type="info">Accepted</Badge>
-        
+        <p className="text-sm">500 Applied</p>
+      </td>
+      <td>
+        <p className="text-sm">10 Aug, 2025</p>
+      </td>
+      <td>
+        <Badge type="danger">Expired</Badge>
       </td>
       <td>
         <div className="relative" ref={dropdownContainer}>
@@ -59,7 +54,7 @@ const TableRow: React.FC<Props> = ({ setAbove = false }) => {
           >
             <EllipsisVertical />
           </button>
-          {open && (
+          {/* {open && (
             <DotMenu setAbove={setAbove}>
               <div className="transition-all duration-300 hover:bg-gray-50">
                 <button className="flex items-center gap-2">
@@ -87,7 +82,7 @@ const TableRow: React.FC<Props> = ({ setAbove = false }) => {
                 </button>
               </div>
             </DotMenu>
-          )}
+          )} */}
         </div>
       </td>
     </tr>

@@ -17,7 +17,7 @@ const Header: React.FC<Props> = ({
   return (
     <header className="bg-white shadow-md h-[70px] flex items-center justify-between px-6">
       <div
-        className="flex flex-col gap-2 justify-center size-8 cursor-pointer"
+        className="flex flex-col gap-2 shrink-0 justify-center size-8 cursor-pointer"
         onClick={() => {
           setOpen((prev) => !prev);
           setRunAnimation(true);
