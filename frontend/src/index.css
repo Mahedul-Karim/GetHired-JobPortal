@@ -16,6 +16,12 @@
   }
 }
 
+@layer components{
+  .dot-menu *{
+    @apply text-gray-1 text-sm;
+  }
+}
+
 :root {
   --primary: #5049e1;
   --primary-light: rgba(80, 73, 225, 0.4);

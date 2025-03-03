@@ -15,6 +15,7 @@ import {
   Plus,
   X,
   ClipboardList,
+  UsersRound,
 } from "lucide-react";
 import Select from "./Select";
 import Checkbox from "../../../../ui/check/Checkbox";
@@ -76,7 +77,11 @@ const JobForm = () => {
             <Checkbox name="gender" checkId="both" value="both" label="Both" />
           </div>
         </div>
-        <Input placeholder="Location" label="Job Location" Icon={MapPin} />
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Input placeholder="Location" label="Job Location" Icon={MapPin} />
+          <Input placeholder="E.g. 5" type="number" label="Vacancy" Icon={UsersRound} />
+        </div>
+
         <TextArea
           placeholder="Description"
           label="Job Description"

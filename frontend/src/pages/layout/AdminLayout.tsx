@@ -65,7 +65,7 @@ const AdminLayout = () => {
       } transition-all duration-500`}
     >
       <Sidebar navItems={ADMIN_SIDEBAR} />
-      <section>
+      <section className="overflow-x-auto">
         <Header
           open={open}
           setOpen={setOpen}
