@@ -7,6 +7,7 @@ import {
   Globe,
   Clock3,
   Notebook,
+  MapPin,
 } from "lucide-react";
 import TextArea from "../../../ui/form/TextArea";
 import Button from "../../../ui/button/Button";
@@ -24,6 +25,7 @@ const BasicInfo = () => {
           <Input placeholder="Company Website" Icon={Globe} />
         </div>
         <Input placeholder="Established Since" type="number" Icon={Clock3} />
+        <Input placeholder="Company Location" type="text" Icon={MapPin} />
         <TextArea placeholder="Description" Icon={Notebook} />
         <Button>Save Changes</Button>
       </form>
