@@ -7,9 +7,12 @@ import { sendEmail } from "../util/sendEmail.js";
 import {
   calculateProfileCompletion,
   catchAsyncError,
+  comparePassword,
+  generateToken,
   generateOtp as otpCreator,
 } from "../util/util.js";
 import { OTP } from "../models/otp.js";
+import { uploadToCloudinary } from "../config/cloudinary.js";
 
 const generateOtp = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
@@ -59,7 +62,7 @@ const generateOtp = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "An otp has been sent to your email"
+    message: "An otp has been sent to your email",
   });
 });
 
@@ -74,7 +77,6 @@ const createUser = catchAsyncError(async (req, res, next) => {
 
   const profileCompletion = calculateProfileCompletion(accountType, data);
 
-
   const findOtp = await OTP.findOne({
     email: data.email,
     otp,
@@ -87,7 +89,7 @@ const createUser = catchAsyncError(async (req, res, next) => {
   }
 
   if (findOtp.expiresIn < new Date()) {
-    await OTP.findOneAndDelete({ email:data.email, otp });
+    await OTP.findOneAndDelete({ email: data.email, otp });
     return next(new AppError("Otp has expired", 401));
   }
 
@@ -111,7 +113,7 @@ const createUser = catchAsyncError(async (req, res, next) => {
     });
   }
 
-  await OTP.findOneAndDelete({ email:data.email, otp });
+  await OTP.findOneAndDelete({ email: data.email, otp });
 
   res.status(201).json({
     success: true,
@@ -119,4 +121,156 @@ const createUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
-export { generateOtp, createUser };
+const signIn = catchAsyncError(async (req, res, next) => {
+  const { accountType, email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new AppError("All fields are required", 403));
+  }
+
+  let user;
+
+  if (accountType === "candidate") {
+    user = await User.findOne({ email });
+  } else {
+    user = await Company.findOne({ email });
+  }
+
+  if (!user) {
+    return next(new AppError("User does not exist", 404));
+  }
+
+  if (!(await comparePassword(password, user.password))) {
+    return next(new AppError("Invalid password"));
+  }
+
+  const token = generateToken({ email: user.email, accountType });
+
+  user.password = null;
+
+  const options = {
+    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  };
+
+  res.cookie("token", token, options).status(200).json({
+    success: true,
+    user,
+    token,
+  });
+});
+
+const updateUserProfile = catchAsyncError(async (req, res, next) => {
+  const userId = req.user._id;
+
+  const data = { ...req.body };
+
+  let profilePic = null;
+
+  if (req.file) {
+    const result = await uploadToCloudinary(req.file);
+
+    profilePic = {
+      public_id: result.public_id,
+      url: result.secure_url,
+    };
+
+    data.profilePic = profilePic;
+  }
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      ...data,
+    },
+    {
+      new: true,
+    }
+  );
+
+  user.userProfileCompletion = calculateProfileCompletion("candidate", user);
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    user,
+    message: "User updated successfully!",
+  });
+});
+
+const updateCompanyProfile = catchAsyncError(async (req, res, next) => {
+  const companyId = req.company._id;
+
+  const data = { ...req.body };
+
+  let photoGallery = [];
+  let companyLogo = null;
+  let companyBanner = null;
+
+  if (req.files?.galleryItems && req.files.galleryItems.length > 0) {
+    await Promise.all(
+      req.files.galleryItems.map(async (file) => {
+        const result = await uploadToCloudinary(file);
+
+        photoGallery.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+        });
+      })
+    );
+
+    data.photoGallery = photoGallery;
+  }
+
+  if (req.files?.avatar?.[0]) {
+    const result = await uploadToCloudinary(req.files.avatar[0]);
+
+    companyLogo = {
+      public_id: result.public_id,
+      url: result.secure_url,
+    };
+
+    data.companyLogo = companyLogo;
+  }
+
+  if (req.files?.banner?.[0]) {
+    const result = await uploadToCloudinary(req.files.banner[0]);
+
+    companyBanner = {
+      public_id: result.public_id,
+      url: result.secure_url,
+    };
+
+    data.companyBanner = companyBanner;
+  }
+
+  const company = await Company.findByIdAndUpdate(
+    companyId,
+    {
+      ...data,
+    },
+    {
+      new: true,
+    }
+  );
+
+  company.profileCompletion = calculateProfileCompletion("employer", company);
+  await company.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Profile updated successfully!",
+    company,
+  });
+});
+
+export {
+  generateOtp,
+  createUser,
+  updateUserProfile,
+  signIn,
+  updateCompanyProfile,
+};

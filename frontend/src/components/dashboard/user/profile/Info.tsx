@@ -26,7 +26,11 @@ const Info = () => {
       <form action="" className="space-y-8">
         <ProfileUpload />
         <div className="grid sm:grid-cols-2 gap-4">
-          <Input placeholder="Your Name" Icon={UserRound} />
+          <Input placeholder="Your First Name" Icon={UserRound} />
+          <Input placeholder="Your Last Name" Icon={UserRound} />
+        </div>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Input placeholder="Date of birth" type="date" Icon={Calendar} />
           <Input placeholder="Your Phone Number" Icon={Phone} />
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
@@ -59,7 +63,6 @@ const Info = () => {
             />
           </div>
         </div>
-        <Input placeholder="Date of birth" type="date" Icon={Calendar} />
         <Input placeholder="Full Address" Icon={MapPin} />
         <TextArea placeholder="Your Bio" Icon={ListCollapse} />
         <Button>Save Changes</Button>

@@ -1,4 +1,6 @@
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const calculateProfileCompletion = (profileType, schema) => {
   const userPoints = {
@@ -43,27 +45,41 @@ const calculateProfileCompletion = (profileType, schema) => {
   let totalPoints = 0;
   let maxPoints = 100;
 
-  if (profileType === "candidate") {
-    for (const fields in userPoints) {
-      if (schema[fields] && schema[fields] !== "") {
-        totalPoints += userPoints[fields];
-      }
+  const points = profileType === "employer" ? companyPoints : userPoints;
+  
+
+  for (const field in points) {
+    const value = schema[field];
+
+    if (Array.isArray(value) && value.length > 0) {
+      totalPoints += points[field];
+      continue;
+    }
+
+    if (
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      Object.keys(value.toObject()).length > 0
+    ) {
+      totalPoints += points[field];
+      continue;
+    }
+
+    if (
+      value &&
+      value !== "" &&
+      typeof value !== "object" &&
+      !Array.isArray(value)
+    ) {
+      totalPoints += points[field];
+      continue;
     }
   }
 
-  if (profileType === "employer") {
-    for (const fields in companyPoints) {
-      if (Array.isArray(schema[fields]) && schema[fields].length > 0) {
-        totalPoints += companyPoints[fields];
-      }
+  const percentage = (totalPoints / maxPoints) * 100;
 
-      if (schema[fields]) {
-        totalPoints += companyPoints[fields];
-      }
-    }
-  }
 
-  return (totalPoints / maxPoints) * 100;
+  return Math.round(percentage);
 };
 
 const catchAsyncError = (fn) => {
@@ -76,4 +92,20 @@ const generateOtp = () => {
   return crypto.randomInt(100000, 999999).toString();
 };
 
-export { calculateProfileCompletion, catchAsyncError, generateOtp };
+const generateToken = (data) => {
+  return jwt.sign(data, process.env.JWT_SECRET, {
+    expiresIn: "3d",
+  });
+};
+
+const comparePassword = async (passwordToCompare, existingPassword) => {
+  return await bcrypt.compare(passwordToCompare, existingPassword);
+};
+
+export {
+  calculateProfileCompletion,
+  catchAsyncError,
+  generateOtp,
+  generateToken,
+  comparePassword,
+};
