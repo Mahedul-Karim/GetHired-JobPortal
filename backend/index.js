@@ -7,6 +7,7 @@ import { handleError } from "./controller/error.js";
 import { connectDB } from "./config/db.js";
 
 import userRouter from "./routes/user.js";
+import resumeRouter from "./routes/resume.js";
 import { configCloudinary } from "./config/cloudinary.js";
 
 dotenv.config({ path: "./.env" });
@@ -26,6 +27,7 @@ connectDB();
 configCloudinary();
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/resume", resumeRouter);
 
 app.use(handleError);
 

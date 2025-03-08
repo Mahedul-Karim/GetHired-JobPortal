@@ -15,7 +15,8 @@ const EducationModal: React.FC<Props> = ({ open, setOpen }) => {
       <form className="space-y-4">
         <Input placeholder="Example: Bachelor of Science" label="Degree" />
         <Input placeholder="Enter your university name" label="University" />
-        <Input placeholder="Example: 2006-2010" label="Duration" />
+        <Input placeholder="" type="date" label="Start Date" />
+        <Input type="date" placeholder="" label="End Date" />
         <TextArea
           placeholder="Extra Description"
           label="Write Description(optional)"

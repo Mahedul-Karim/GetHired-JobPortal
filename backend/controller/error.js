@@ -36,6 +36,11 @@ export const handleError = (err, req, res, next) => {
       error = new AppError(message, 400);
     }
 
+    if(err.status === 429){
+      const message = 'Rate limit exceeded. Please try again later.';
+      error = new AppError(message,429)
+    }
+
     res.status(status).json({
       success: false,
       message: error.message || "Internel Server error",

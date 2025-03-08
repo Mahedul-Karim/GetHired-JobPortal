@@ -5,6 +5,7 @@ import Experiences from "../../../../components/dashboard/user/resume/Experience
 import Education from "../../../../components/dashboard/user/resume/Education";
 import Projects from "../../../../components/dashboard/user/resume/Projects";
 import Progress from "../../../../components/ui/Progress";
+import Button from "../../../../components/ui/button/Button";
 
 const Resume = () => {
   return (
@@ -15,6 +16,12 @@ const Resume = () => {
       <Experiences />
       <Education />
       <Projects />
+      <div className="my-6">
+        <Button style={{ width: "100%" }}>Generate Resume</Button>
+      </div>
+      <pre>
+        
+      </pre>
     </>
   );
 };

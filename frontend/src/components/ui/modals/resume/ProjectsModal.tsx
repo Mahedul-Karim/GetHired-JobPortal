@@ -25,6 +25,7 @@ const ProjectsModal: React.FC<Props> = ({ open, setOpen }) => {
     <Modal open={open} setOpen={setOpen} modalTitle="Add Projects">
       <form className="space-y-4">
         <Input placeholder="Enter your project name" label="Project Name" />
+        <Input placeholder="Enter your project link" label="Project Link" />
         <div>
           <Input placeholder="Example: React Js" label="Technology Used" />
           <div className="flex justify-between gap-2 mt-4">
