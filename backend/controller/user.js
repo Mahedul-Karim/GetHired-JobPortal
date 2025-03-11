@@ -131,7 +131,7 @@ const signIn = catchAsyncError(async (req, res, next) => {
   let user;
 
   if (accountType === "candidate") {
-    user = await User.findOne({ email });
+    user = await User.findOne({ email }).populate('resume','-aiResume');
   } else {
     user = await Company.findOne({ email });
   }

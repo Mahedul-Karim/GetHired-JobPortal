@@ -77,6 +77,10 @@ const userSchema = new Schema(
     linkedin: {
       type: String,
     },
+    resume: {
+      type: Schema.Types.ObjectId,
+      ref: "Resume",
+    },
     userProfileCompletion: {
       type: Number,
     },
@@ -91,7 +95,7 @@ userSchema.pre("save", async function (next) {
     return next();
   }
 
-  this.password =await bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 export const User = model("User", userSchema);

@@ -8,9 +8,12 @@ import { connectDB } from "./config/db.js";
 
 import userRouter from "./routes/user.js";
 import resumeRouter from "./routes/resume.js";
-import { configCloudinary } from "./config/cloudinary.js";
+import cvRouter from "./routes/cv.js";
 
+
+import { configCloudinary } from "./config/cloudinary.js";
 dotenv.config({ path: "./.env" });
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,11 +26,14 @@ app.options("*", cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
+
+
 connectDB();
 configCloudinary();
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/resume", resumeRouter);
+app.use("/api/v1/cv", cvRouter);
 
 app.use(handleError);
 
