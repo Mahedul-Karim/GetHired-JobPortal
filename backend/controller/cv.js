@@ -6,7 +6,6 @@ import { catchAsyncError } from "../util/util.js";
 import AppError from "../util/error.js";
 
 import handlebars from "handlebars";
-import { chromium } from "@playwright/test";
 
 const createCv = catchAsyncError(async (req, res, next) => {
   const userId = req.user._id;
@@ -34,50 +33,38 @@ const createCv = catchAsyncError(async (req, res, next) => {
 
   const supabase = createSupabase();
 
-  const template = handlebars.compile(cvTemplate);
-  const htmlContent = template(resumeObject);
+  
 
-  const browser = await chromium.launch({
-    headless: true,
-  });
-  const page = await browser.newPage();
-  await page.setContent(htmlContent, {
-    waitUntil: "load",
-  });
+  // const fileName = `cv-${userId}.pdf`;
 
-  const pdfBuffer = await page.pdf({
-    format: "A4"
-  }); 
+  // const { data, error } = await supabase.storage
+  //   .from("user-cv")
+  //   .upload(fileName, pdfBuffer, {
+  //     contentType: "application/pdf",
+  //     upsert: true,
+  //   });
 
-  await browser.close();
+  // if (error) {
+  //   return next(new AppError("Failed to generate pdf"));
+  // }
 
-  const fileName = `cv-${userId}.pdf`;
+  // const url = `${process.env.SUPABASE_URL}/storage/v1/object/public/user-cv/${fileName}`;
 
-  const { data, error } = await supabase.storage
-    .from("user-cv")
-    .upload(fileName, pdfBuffer, {
-      contentType: "application/pdf",
-      upsert: true,
-    });
+  // const cv = await CV.create({
+  //   user: userId,
+  //   cvImage: resumeObject.userImage,
+  //   userName: req.user.firstName + " " + req.user.lastName,
+  //   cvFor: resumeObject.headline,
+  //   cvUrl: url,
+  // });
 
-  if (error) {
-    return next(new AppError("Failed to generate pdf"));
-  }
+  // res.status(201).json({
+  //   success: true,
+  //   cv,
+  // });
 
-  const url = `${process.env.SUPABASE_URL}/storage/v1/object/public/user-cv/${fileName}`;
+  res.send('Hello world')
 
-  const cv = await CV.create({
-    user: userId,
-    cvImage: resumeObject.userImage,
-    userName: req.user.firstName + " " + req.user.lastName,
-    cvFor: resumeObject.headline,
-    cvUrl: url,
-  });
-
-  res.status(201).json({
-    success: true,
-    cv,
-  });
 });
 
 export { createCv };
