@@ -14,6 +14,8 @@ import {
 import { OTP } from "../models/otp.js";
 import { uploadToCloudinary } from "../config/cloudinary.js";
 import { CompantState } from "../models/company/State.js";
+import { Candidate } from "../models/company/Candidate.js";
+import { UserState } from "../models/userState.js";
 
 const generateOtp = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
@@ -103,6 +105,12 @@ const createUser = catchAsyncError(async (req, res, next) => {
       accountType,
       userProfileCompletion: profileCompletion,
     });
+
+    await UserState.create({
+      user:user._id,
+      profileCompletion
+    })
+
   }
 
   if (accountType === "employer") {
@@ -115,7 +123,7 @@ const createUser = catchAsyncError(async (req, res, next) => {
 
     await CompantState.create({
       company: user._id,
-      profileCompletion
+      profileCompletion,
     });
   }
 
@@ -212,19 +220,19 @@ const updateCompanyProfile = catchAsyncError(async (req, res, next) => {
 
   const data = { ...req.body };
 
-  let photoGallery = [];
+  let photoGallery;
   let companyLogo = null;
   let companyBanner = null;
 
   if (req.files?.galleryItems && req.files.galleryItems.length > 0) {
-    await Promise.all(
+    photoGallery = await Promise.all(
       req.files.galleryItems.map(async (file) => {
         const result = await uploadToCloudinary(file);
 
-        photoGallery.push({
+        return {
           public_id: result.public_id,
           url: result.secure_url,
-        });
+        };
       })
     );
 
@@ -286,6 +294,71 @@ const logOut = catchAsyncError(async (req, res) => {
   });
 });
 
+const userStates = catchAsyncError(async (req, res) => {
+  const userId = req.user._id;
+
+  const now = new Date();
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(now.getMonth() - 5);
+
+  const lastSixMonthsData = [];
+  for (let i = 5; i >= 0; i--) {
+    const date = new Date();
+    date.setMonth(now.getMonth() - i);
+    lastSixMonthsData.push({
+      month: date.getMonth() + 1,
+      applied: 0,
+      rejected: 0,
+      responded: 0,
+    });
+  }
+
+  const state = await UserState.findOne({ user: userId });
+
+  const applications = await Candidate.aggregate([
+    {
+      $match: {
+        appliedAt: { $gte: sixMonthsAgo },
+      },
+    },
+    {
+      $group: {
+        _id: { $month: "$appliedAt" },
+        applied: { $sum: 1 },
+        rejected: {
+          $sum: { $cond: [{ $eq: ["$status", "rejected"] }, 1, 0] },
+        },
+        responded: {
+          $sum: {
+            $cond: [{ $or: [{ $eq: ["$status", "responded"] }] }, 1, 0],
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        month: "$_id",
+        applied: 1,
+        rejected: 1,
+        responded: 1,
+      },
+    },
+    { $sort: { month: 1 } },
+  ]);
+
+  const finalData = lastSixMonthsData.map((month) => {
+    const found = applications.find((app) => app.month === month.month);
+    return found ? found : month;
+  });
+
+  res.status(200).json({
+    success: true,
+    data: finalData,
+    state,
+  });
+});
+
 export {
   generateOtp,
   createUser,
@@ -293,4 +366,5 @@ export {
   signIn,
   updateCompanyProfile,
   logOut,
+  userStates,
 };

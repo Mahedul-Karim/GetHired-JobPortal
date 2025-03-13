@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const candidateSchema = new Schema({
-  userId: {
+  candidateId: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
@@ -19,7 +19,7 @@ const candidateSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["rejected", "declined", "approved", "hired"],
+    enum: ["rejected", "declined", "approved", "hired","responded","pending"],
   },
 });
 

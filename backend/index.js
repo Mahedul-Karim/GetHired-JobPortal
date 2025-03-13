@@ -9,6 +9,8 @@ import { connectDB } from "./config/db.js";
 import userRouter from "./routes/user.js";
 import resumeRouter from "./routes/resume.js";
 import cvRouter from "./routes/cv.js";
+import companyRouter from "./routes/company.js";
+import jobRouter from "./routes/job.js";
 
 
 import { configCloudinary } from "./config/cloudinary.js";
@@ -34,6 +36,8 @@ configCloudinary();
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/resume", resumeRouter);
 app.use("/api/v1/cv", cvRouter);
+app.use("/api/v1/company", companyRouter);
+app.use("/api/v1/job", jobRouter);
 
 app.use(handleError);
 

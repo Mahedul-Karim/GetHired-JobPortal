@@ -5,7 +5,8 @@ import {
   updateUserProfile,
   signIn,
   updateCompanyProfile,
-  logOut
+  logOut,
+  userStates,
 } from "../controller/user.js";
 import upload, { uploadMiddleware } from "../config/multer.js";
 import { verifyEmployer, verifyUser } from "../middleware/auth.js";
@@ -18,7 +19,8 @@ router.route("/login").post(signIn);
 router.route("/").patch(verifyUser, upload.single("avatar"), updateUserProfile);
 router
   .route("/company")
-  .patch(verifyEmployer, uploadMiddleware,updateCompanyProfile);
-router.route('/logout').post(verifyUser,logOut)
+  .patch(verifyEmployer, uploadMiddleware, updateCompanyProfile);
+router.route("/logout").post(verifyUser, logOut);
+router.route("/state").get(verifyUser, userStates);
 
 export default router;
