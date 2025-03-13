@@ -13,6 +13,7 @@ import {
 } from "../util/util.js";
 import { OTP } from "../models/otp.js";
 import { uploadToCloudinary } from "../config/cloudinary.js";
+import { CompantState } from "../models/company/State.js";
 
 const generateOtp = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
@@ -111,6 +112,11 @@ const createUser = catchAsyncError(async (req, res, next) => {
       accountType,
       profileCompletion,
     });
+
+    await CompantState.create({
+      company: user._id,
+      profileCompletion
+    });
   }
 
   await OTP.findOneAndDelete({ email: data.email, otp });
@@ -131,7 +137,7 @@ const signIn = catchAsyncError(async (req, res, next) => {
   let user;
 
   if (accountType === "candidate") {
-    user = await User.findOne({ email }).populate('resume','-aiResume');
+    user = await User.findOne({ email }).populate("resume", "-aiResume");
   } else {
     user = await Company.findOne({ email });
   }
@@ -267,10 +273,24 @@ const updateCompanyProfile = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const logOut = catchAsyncError(async (req, res) => {
+  const options = {
+    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+  };
+
+  res.cookie("token", null, options).json({
+    success: true,
+    token: null,
+    user: null,
+  });
+});
+
 export {
   generateOtp,
   createUser,
   updateUserProfile,
   signIn,
   updateCompanyProfile,
+  logOut,
 };
