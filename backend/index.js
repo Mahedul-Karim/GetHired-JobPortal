@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-
 import { handleError } from "./controller/error.js";
 import { connectDB } from "./config/db.js";
 
@@ -12,23 +11,29 @@ import cvRouter from "./routes/cv.js";
 import companyRouter from "./routes/company.js";
 import jobRouter from "./routes/job.js";
 
-
 import { configCloudinary } from "./config/cloudinary.js";
 dotenv.config({ path: "./.env" });
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  credentials:true,
-  origin:process.env.FRONTEND_URL
-}));
+const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
+
+app.use(
+  cors({
+    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 app.options("*", cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
-
-
 
 connectDB();
 configCloudinary();
