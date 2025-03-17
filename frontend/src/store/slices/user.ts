@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
-  token: localStorage.getItem("token")
-    ? JSON.parse(localStorage.getItem("token")!)
-    : null,
+  token: null,
   user: null,
   signUpData: null,
 };
@@ -19,9 +16,15 @@ const userSlice = createSlice({
     setUser(state, value) {
       state.user = value.payload.user;
       state.token = value.payload.token;
+      localStorage.setItem("token", JSON.stringify(value.payload.token));
+      localStorage.setItem("getHiredUser", JSON.stringify(value.payload.user));
     },
+    setInitialAuth(state,value){
+      state.user = value.payload.user;
+      state.token = value.payload.token;
+    }
   },
 });
 
-export const { setSignUpData, setUser } = userSlice.actions;
+export const { setSignUpData, setUser,setInitialAuth } = userSlice.actions;
 export default userSlice.reducer;

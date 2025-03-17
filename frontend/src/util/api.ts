@@ -7,7 +7,10 @@ interface Params {
 
 const api = async ({ endpoint, options }: Params) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/${endpoint}`, options);
+    const res = await fetch(`${BACKEND_URL}/${endpoint}`, {
+      ...options,
+      credentials: "include",
+    });
 
     if (!res.ok) {
       throw new Error(`Error ${res.status}: ${res.statusText}`);

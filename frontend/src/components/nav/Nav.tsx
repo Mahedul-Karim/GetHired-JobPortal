@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { NAV_DATA } from "../../util/data";
 import Avatar from "../ui/Avatar";
 import Button from "../ui/button/Button";
+import { useSelector } from "react-redux";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   onClick?: (val: any) => void;
@@ -10,6 +11,8 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 const Nav: React.FC<Props> = ({ className, onClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state: any) => state.user);
 
   return (
     <div
@@ -43,16 +46,23 @@ const Nav: React.FC<Props> = ({ className, onClick }) => {
         {/* <Avatar /> */}
         <Button
           onClick={() => {
-            // navigate('/user/dashboard');
-            // navigate('/user/hello');
-            // navigate('/admin/dashboard');
-            navigate('/login');
+            if (!user) {
+              navigate("/login");
+              return;
+            }
+
+            const link =
+              user.accountType === "candidate"
+                ? "/user/dashboard"
+                : "/admin/dashboard";
+
+            navigate(link);
             if (!onClick) return;
 
             onClick(false);
           }}
         >
-          Sign In
+          {user ? "Dashboard" : "Sign In"}
         </Button>
       </div>
     </div>
