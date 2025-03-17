@@ -8,6 +8,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   rounded?: boolean;
   containerClass?: string;
   centerInput?: boolean;
+  error?: any;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
@@ -21,6 +22,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       containerClass = "",
       centerInput = false,
       disabled = false,
+      error,
       ...props
     }: Props,
     ref
@@ -39,7 +41,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
             centerInput ? "justify-center" : "justify-start"
           }  px-4 py-3 ${
             rounded ? "rounded-full" : "rounded-lg"
-          } gap-2 w-full ${disabled ? "bg-[#F8F8F8]" : "bg-[#d4e6ff]/[0.4]"}`}
+          } gap-2 w-full ${disabled ? "bg-[#F8F8F8]" : "bg-[#d4e6ff]/[0.4]"} ${
+            error ? "border-red-700 border border-solid" : "border-none"
+          }`}
         >
           {Icon && <Icon className="text-primary" />}
           <input
@@ -51,6 +55,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
             {...props}
           />
         </div>
+        {error && <p className="text-sm text-red-700 mt-2">*{error}</p>}
       </div>
     );
   }

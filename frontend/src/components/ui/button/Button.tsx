@@ -1,4 +1,5 @@
 import React from "react";
+import Spinner from "../loader/Spinner";
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "outline";
@@ -27,11 +28,12 @@ const Button: React.FC<Props> = ({
     <button
       className={`${buttonStyles} px-6 py-2 ${
         rounded ? "rounded-full" : "rounded-md"
-      } font-medium w-full md:w-auto text-sm sm:text-base flex items-center justify-center transition-all duration-300 active:scale-75 ${className}`}
+      } font-medium w-full md:w-auto text-sm sm:text-base flex items-center justify-center transition-all gap-2 duration-300 active:scale-75 ${className}`}
       type={type}
       disabled={disabled}
       {...props}
     >
+      {disabled && <Spinner />}
       {children}
     </button>
   );

@@ -4,9 +4,10 @@ import Input from "../../ui/form/Input";
 interface Props {
   length: number;
   setOtpValue: React.Dispatch<React.SetStateAction<number>>;
+  disabled?:boolean;
 }
 
-const OtpInput: React.FC<Props> = ({ length, setOtpValue }) => {
+const OtpInput: React.FC<Props> = ({ length, setOtpValue,disabled }) => {
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>(
     new Array(length).fill(null)
@@ -66,6 +67,7 @@ const OtpInput: React.FC<Props> = ({ length, setOtpValue }) => {
             fontSize: "18px",
           }}
           ref={(el) => (inputRefs.current[i] = el)}
+          disabled={disabled}
         />
       ))}
     </>
