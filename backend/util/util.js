@@ -19,8 +19,8 @@ const calculateProfileCompletion = (profileType, schema) => {
     gender: 2,
     dateOfBirth: 4,
     address: 4,
-    facebook: 5,
-    twitter: 3,
+    facebook: 6,
+    twitter: 6,
     github: 6,
     linkedin: 6,
   };
