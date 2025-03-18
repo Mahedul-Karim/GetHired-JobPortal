@@ -22,12 +22,12 @@ export const handleError = (err, req, res, next) => {
     }
 
     if (err.name === "JsonWebTokenError") {
-      const message = "Your url is invalid!Please try again later";
+      const message = "Invalid token! Please log in again";
       error = new AppError(message, 400);
     }
 
-    if (err.name === "TokenExpired") {
-      const message = "Your url has expired!Please try again later!";
+    if (err.name === "TokenExpired" || err.name === "TokenExpiredError") {
+      const message = "Token has expired! Please log in again!";
       error = new AppError(message, 400);
     }
 
@@ -36,9 +36,9 @@ export const handleError = (err, req, res, next) => {
       error = new AppError(message, 400);
     }
 
-    if(err.status === 429){
-      const message = 'Rate limit exceeded. Please try again later.';
-      error = new AppError(message,429)
+    if (err.status === 429) {
+      const message = "Rate limit exceeded. Please try again later.";
+      error = new AppError(message, 429);
     }
 
     res.status(status).json({

@@ -18,4 +18,8 @@ const uploadToCloudinary = async (file) => {
   });
 };
 
-export { configCloudinary, uploadToCloudinary };
+const deleteFromCloudinary = async (publicId) => {
+  await cloudinary.uploader.destroy(publicId);
+};
+
+export { configCloudinary, uploadToCloudinary, deleteFromCloudinary };

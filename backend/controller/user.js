@@ -12,7 +12,10 @@ import {
   generateOtp as otpCreator,
 } from "../util/util.js";
 import { OTP } from "../models/otp.js";
-import { uploadToCloudinary } from "../config/cloudinary.js";
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+} from "../config/cloudinary.js";
 import { CompantState } from "../models/company/State.js";
 import { Candidate } from "../models/company/Candidate.js";
 import { UserState } from "../models/userState.js";
@@ -107,10 +110,9 @@ const createUser = catchAsyncError(async (req, res, next) => {
     });
 
     await UserState.create({
-      user:user._id,
-      profileCompletion
-    })
-
+      user: user._id,
+      profileCompletion,
+    });
   }
 
   if (accountType === "employer") {
@@ -179,11 +181,17 @@ const signIn = catchAsyncError(async (req, res, next) => {
 const updateUserProfile = catchAsyncError(async (req, res, next) => {
   const userId = req.user._id;
 
+  const existingPic = req.user.profilePic?.public_id || null;
+
   const data = { ...req.body };
 
   let profilePic = null;
 
   if (req.file) {
+    if (existingPic) {
+      await deleteFromCloudinary(existingPic);
+    }
+
     const result = await uploadToCloudinary(req.file);
 
     profilePic = {
