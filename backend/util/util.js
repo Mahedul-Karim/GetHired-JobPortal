@@ -50,16 +50,17 @@ const calculateProfileCompletion = (profileType, schema) => {
 
   for (const field in points) {
     const value = schema[field];
-
-    if (Array.isArray(value) && value.length > 0) {
+    
+    if (value && Array.isArray(value) && value.length > 0) {
       totalPoints += points[field];
       continue;
     }
 
     if (
+      value &&
       typeof value === "object" &&
       !Array.isArray(value) &&
-      Object.keys(value.toObject()).length > 0
+      !Object.values(value).includes(undefined)
     ) {
       totalPoints += points[field];
       continue;
