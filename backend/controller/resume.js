@@ -80,7 +80,7 @@ const createResume = catchAsyncError(async (req, res, next) => {
     ...resumeData,
   });
 
-  const user = await User.findByIdAndUpdate(
+  await User.findByIdAndUpdate(
     userId,
     {
       resume: resume._id,
@@ -93,7 +93,6 @@ const createResume = catchAsyncError(async (req, res, next) => {
   res.status(201).json({
     success: true,
     resume,
-    user,
   });
 });
 
@@ -108,8 +107,8 @@ const updateResume = catchAsyncError(async (req, res, next) => {
     const value = data[field];
 
     if (Array.isArray(value)) {
-      updateQuery.$push = updateQuery.$push || {};
-      updateQuery.$push[field] = {
+      updateQuery.$addToSet = updateQuery.$addToSet || {};
+      updateQuery.$addToSet[field] = {
         $each: value,
       };
       continue;
@@ -140,4 +139,17 @@ const updateResume = catchAsyncError(async (req, res, next) => {
   });
 });
 
-export { createResume, updateResume };
+const getUserResume = catchAsyncError(async (req, res) => {
+  const userId = req.user._id;
+
+  const resume = await Resume.findOne({
+    user: userId,
+  });
+
+  res.status(200).json({
+    success: true,
+    resume:resume || {},
+  });
+});
+
+export { createResume, updateResume,getUserResume };

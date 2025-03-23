@@ -23,13 +23,19 @@ const resumeSchema = new Schema(
           type: String,
         },
         workedFor: {
-          type: Number,
+          type: String,
         },
         startDate: {
           type: Date,
         },
         endDate: {
           type: Date,
+        },
+        currentlyWorking: {
+          type: Boolean,
+        },
+        description: {
+          type: String,
         },
       },
     ],

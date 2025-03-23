@@ -5,7 +5,7 @@ const notificationSchema = new Schema({
   message: { type: String, required: true },
   type: {
     type: String,
-    enum: ["message", "rejected", "approved", "hired", "declined"],
+    enum: ["message", "rejected", "approved", "hired", "declined","applied"],
     required: true,
   },
   isRead: { type: Boolean, default: false },

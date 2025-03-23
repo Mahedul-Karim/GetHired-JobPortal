@@ -19,6 +19,7 @@ import {
 import { CompantState } from "../models/company/State.js";
 import { Candidate } from "../models/company/Candidate.js";
 import { UserState } from "../models/userState.js";
+import { Notification } from "../models/notifications.js";
 
 const generateOtp = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
@@ -133,7 +134,7 @@ const createUser = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    user,
+    message: "Account created successfully! Log in now!",
   });
 });
 
@@ -147,7 +148,9 @@ const signIn = catchAsyncError(async (req, res, next) => {
   let user;
 
   if (accountType === "candidate") {
-    user = await User.findOne({ email }).populate("resume", "-aiResume");
+    user = await User.findOne({ email })
+      .populate("resume", "-aiResume")
+      .populate("cv", "cvUrl");
   } else {
     user = await Company.findOne({ email });
   }
@@ -210,9 +213,19 @@ const updateUserProfile = catchAsyncError(async (req, res, next) => {
     {
       new: true,
     }
-  );
+  )
+    .populate("resume", "-aiResume")
+    .populate("cv", "cvUrl");
 
-  user.userProfileCompletion = calculateProfileCompletion("candidate", user);
+  const percentage = calculateProfileCompletion("candidate", user);
+
+  user.userProfileCompletion = percentage;
+
+  await UserState.findOneAndUpdate(
+    { user: user._id },
+    { profileCompletion: percentage },
+    { new: true }
+  );
 
   await user.save();
 
@@ -220,72 +233,6 @@ const updateUserProfile = catchAsyncError(async (req, res, next) => {
     success: true,
     user,
     message: "User updated successfully!",
-  });
-});
-
-const updateCompanyProfile = catchAsyncError(async (req, res, next) => {
-  const companyId = req.company._id;
-
-  const data = { ...req.body };
-
-  let photoGallery;
-  let companyLogo = null;
-  let companyBanner = null;
-
-  if (req.files?.galleryItems && req.files.galleryItems.length > 0) {
-    photoGallery = await Promise.all(
-      req.files.galleryItems.map(async (file) => {
-        const result = await uploadToCloudinary(file);
-
-        return {
-          public_id: result.public_id,
-          url: result.secure_url,
-        };
-      })
-    );
-
-    data.photoGallery = photoGallery;
-  }
-
-  if (req.files?.avatar?.[0]) {
-    const result = await uploadToCloudinary(req.files.avatar[0]);
-
-    companyLogo = {
-      public_id: result.public_id,
-      url: result.secure_url,
-    };
-
-    data.companyLogo = companyLogo;
-  }
-
-  if (req.files?.banner?.[0]) {
-    const result = await uploadToCloudinary(req.files.banner[0]);
-
-    companyBanner = {
-      public_id: result.public_id,
-      url: result.secure_url,
-    };
-
-    data.companyBanner = companyBanner;
-  }
-
-  const company = await Company.findByIdAndUpdate(
-    companyId,
-    {
-      ...data,
-    },
-    {
-      new: true,
-    }
-  );
-
-  company.profileCompletion = calculateProfileCompletion("employer", company);
-  await company.save();
-
-  res.status(200).json({
-    success: true,
-    message: "Profile updated successfully!",
-    company,
   });
 });
 
@@ -315,9 +262,9 @@ const userStates = catchAsyncError(async (req, res) => {
     date.setMonth(now.getMonth() - i);
     lastSixMonthsData.push({
       month: date.getMonth() + 1,
-      applied: 0,
-      rejected: 0,
-      responded: 0,
+      applied: Math.round(Math.random() * 999),
+      rejected: Math.round(Math.random() * 999),
+      responded: Math.round(Math.random() * 999),
     });
   }
 
@@ -360,10 +307,28 @@ const userStates = catchAsyncError(async (req, res) => {
     return found ? found : month;
   });
 
+  const notifications = await Notification.find({ userId, isRead: false });
+
   res.status(200).json({
     success: true,
     data: finalData,
     state,
+    notifications,
+  });
+});
+
+const getAppliedJobs = catchAsyncError(async (req, res) => {
+  const userId = req.user._id;
+
+  const appliedJobs = await Candidate.find({
+    candidateId: userId,
+  })
+    .populate("jobId", "title jobLocation salary jobType")
+    .populate("employerId", "companyLogo");
+
+  res.status(200).json({
+    success: true,
+    appliedJobs,
   });
 });
 
@@ -372,7 +337,7 @@ export {
   createUser,
   updateUserProfile,
   signIn,
-  updateCompanyProfile,
   logOut,
   userStates,
+  getAppliedJobs,
 };

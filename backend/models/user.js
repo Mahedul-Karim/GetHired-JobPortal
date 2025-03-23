@@ -81,6 +81,10 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Resume",
     },
+    cv:{
+      type:Schema.Types.ObjectId,
+      ref:'CV'
+    },
     userProfileCompletion: {
       type: Number,
     },

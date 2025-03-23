@@ -11,13 +11,13 @@ const verifyUser = catchAsyncError(async (req, res, next) => {
     : req.header("authorization")?.split(" ")[1];
 
   if (!token) {
-    return next(new AppError("No token has been found", 403));
+    return next(new AppError("No token has been found", 400));
   }
 
   const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
 
   if (!decodeToken) {
-    return next(new AppError("Invalid token", 403));
+    return next(new AppError("Invalid token", 400));
   }
 
 

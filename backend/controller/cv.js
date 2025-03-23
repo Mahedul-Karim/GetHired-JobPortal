@@ -6,6 +6,7 @@ import { catchAsyncError } from "../util/util.js";
 import AppError from "../util/error.js";
 
 import handlebars from "handlebars";
+import { User } from "../models/user.js";
 
 const createCv = catchAsyncError(async (req, res, next) => {
   const userId = req.user._id;
@@ -33,35 +34,37 @@ const createCv = catchAsyncError(async (req, res, next) => {
 
   const supabase = createSupabase();
 
-  // const fileName = `cv-${userId}.pdf`;
+  const fileName = `cv-${userId}-${Date.now()}.pdf`;
 
-  // const { data, error } = await supabase.storage
-  //   .from("user-cv")
-  //   .upload(fileName, pdfBuffer, {
-  //     contentType: "application/pdf",
-  //     upsert: true,
-  //   });
+  const { data, error } = await supabase.storage
+    .from("user-cv")
+    .upload(fileName, req.file.buffer, {
+      contentType: req.file.mimetype,
+      upsert: true,
+    });
 
-  // if (error) {
-  //   return next(new AppError("Failed to generate pdf"));
-  // }
+  if (error) {
+    return next(new AppError("Failed to generate pdf"));
+  }
 
-  // const url = `${process.env.SUPABASE_URL}/storage/v1/object/public/user-cv/${fileName}`;
+  const url = `${process.env.SUPABASE_URL}/storage/v1/object/public/user-cv/${fileName}`;
 
-  // const cv = await CV.create({
-  //   user: userId,
-  //   cvImage: resumeObject.userImage,
-  //   userName: req.user.firstName + " " + req.user.lastName,
-  //   cvFor: resumeObject.headline,
-  //   cvUrl: url,
-  // });
+  const cv = await CV.create({
+    user: userId,
+    cvImage: resumeObject.userImage,
+    userName: req.user.firstName + " " + req.user.lastName,
+    cvFor: resumeObject.headline,
+    cvUrl: url,
+  });
 
-  // res.status(201).json({
-  //   success: true,
-  //   cv,
-  // });
+  await User.findByIdAndUpdate(userId, {
+    cv: cv._id,
+  });
 
-  res.send("Hello world");
+  res.status(201).json({
+    success: true,
+    cv,
+  });
 });
 
 const uploadCv = catchAsyncError(async (req, res, next) => {
@@ -109,6 +112,10 @@ const uploadCv = catchAsyncError(async (req, res, next) => {
     userName: req.user.firstName + " " + req.user.lastName,
     cvFor: resume.headline,
     cvUrl: url,
+  });
+
+  await User.findByIdAndUpdate(userId, {
+    cv: cv._id,
   });
 
   res.status(201).json({

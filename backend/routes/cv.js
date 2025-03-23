@@ -7,7 +7,10 @@ import upload from "../config/multer.js";
 
 const router = Router();
 
-router.route("/").post(verifyUser, createCv).delete(verifyUser,deleteCv);
+router
+  .route("/")
+  .post(verifyUser, upload.single("cv"), createCv)
+  .delete(verifyUser, deleteCv);
 router.route("/upload").post(verifyUser, upload.single("cv"), uploadCv);
 
 export default router;
