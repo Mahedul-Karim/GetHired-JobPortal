@@ -6,34 +6,33 @@ import LogoAndBanner from "../../../../components/dashboard/employer/profile/Log
 import BasicInfo from "../../../../components/dashboard/employer/profile/BasicInfo";
 import Gallery from "../../../../components/dashboard/employer/profile/Gallery";
 import SocialLinks from "../../../../components/dashboard/employer/profile/SocialLinks";
+import { useSelector } from "react-redux";
 
 const CompanyProfile = () => {
+  const { user, token } = useSelector((state: any) => state.user);
+
   return (
     <>
-      <Progress />
+      <Progress progress={user?.profileCompletion} />
       <Section>
         <Heading className="border-b border-solid pb-4">
           Logo and Banner
         </Heading>
-        <LogoAndBanner />
+        <LogoAndBanner user={user} token={token} />
       </Section>
       <Section>
         <Heading className="border-b border-solid pb-4">
           Basic Information
         </Heading>
-        <BasicInfo />
+        <BasicInfo user={user} token={token} />
       </Section>
       <Section>
-        <Heading className="border-b border-solid pb-4">
-          Photo Gallery
-        </Heading>
+        <Heading className="border-b border-solid pb-4">Photo Gallery</Heading>
         <Gallery />
       </Section>
       <Section>
-        <Heading className="border-b border-solid pb-4">
-          Social Network
-        </Heading>
-    <SocialLinks />
+        <Heading className="border-b border-solid pb-4">Social Network</Heading>
+        <SocialLinks />
       </Section>
     </>
   );

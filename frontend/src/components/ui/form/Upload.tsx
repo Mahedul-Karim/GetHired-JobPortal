@@ -1,23 +1,33 @@
 import React from "react";
 import { MAX_FILE_UPLOAD_SIZE } from "../../../util/util";
 import { FolderUp, Trash2 } from "lucide-react";
+import { useAlert } from "../../../hooks/useAlert";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   fileId: string | number;
   uploadType: "pdf" | "image";
+  setFile: (val: File, size?: string) => void;
 }
 
-const Upload: React.FC<Props> = ({ label, fileId, uploadType, ...props }) => {
+const Upload: React.FC<Props> = ({
+  label,
+  fileId,
+  uploadType,
+  setFile,
+  ...props
+}) => {
+  const { error } = useAlert();
+
   const handleUploadedFile = (file: File) => {
     if (uploadType === "pdf" && file.type.startsWith("image")) {
-      console.error("Please upload valid pdf type!!");
+      error("Please upload valid pdf type!!");
       return;
     }
 
     if (uploadType === "image" && !file.type.startsWith("image")) {
-      console.error("Please provide a valid file type!!");
-      return ;
+      error("Please provide a valid file type!!");
+      return;
     }
 
     let fileSize = "";
@@ -29,12 +39,11 @@ const Upload: React.FC<Props> = ({ label, fileId, uploadType, ...props }) => {
     }
 
     if (file.size > MAX_FILE_UPLOAD_SIZE) {
-      console.log("file is bigger then 10mb");
-      return;
-    } else {
-      console.log(fileSize);
+      error("file is bigger then 10mb");
       return;
     }
+
+    setFile(file, fileSize);
   };
 
   return (
@@ -50,6 +59,10 @@ const Upload: React.FC<Props> = ({ label, fileId, uploadType, ...props }) => {
         id={`file-${fileId}`}
         className="absolute top-0 left-0 hidden"
         multiple
+        onChange={(e) => {
+          handleUploadedFile(e.target.files![0]);
+          e.target.value = "";
+        }}
         {...props}
       />
       <label
@@ -61,9 +74,7 @@ const Upload: React.FC<Props> = ({ label, fileId, uploadType, ...props }) => {
 
           const file = e.dataTransfer.files[0];
 
-           handleUploadedFile(file);
-
-         
+          handleUploadedFile(file);
         }}
       >
         <div className="bg-primary rounded-full p-2">
@@ -77,7 +88,6 @@ const Upload: React.FC<Props> = ({ label, fileId, uploadType, ...props }) => {
           Maximum file size: {MAX_FILE_UPLOAD_SIZE / (1024 * 1024)}mb
         </p>
       </label>
-      
     </div>
   );
 };

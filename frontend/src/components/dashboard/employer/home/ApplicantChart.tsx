@@ -13,32 +13,27 @@ import {
   LegendProps,
 } from "recharts";
 
-const data = [
-  {
-    month: "Jan",
-    applied: 2400,
-  },
-  {
-    month: "Feb",
-    applied: 1398,
-  },
-  {
-    month: "Mar",
-    applied: 9800,
-  },
-  {
-    month: "Apr",
-    applied: 3908,
-  },
-  {
-    month: "May",
-    applied: 4800,
-  },
-  {
-    month: "Jun",
-    applied: 3800,
-  },
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
+
+interface Props {
+  applicants: {
+    month: number;
+    count: number;
+  }[];
+}
 
 const CustomToolTip = ({
   active,
@@ -76,7 +71,10 @@ const RenderLegend: React.FC<LegendProps> = ({ payload }) => {
   return (
     <ul className="flex items-center justify-center gap-4">
       {payload.map((entry, index) => (
-        <li key={`item-${index}`} className="flex items-center gap-2 text-primary">
+        <li
+          key={`item-${index}`}
+          className="flex items-center gap-2 text-primary"
+        >
           <div
             className="size-3 rounded-sm"
             style={{ backgroundColor: `${entry.color}` }}
@@ -88,7 +86,14 @@ const RenderLegend: React.FC<LegendProps> = ({ payload }) => {
   );
 };
 
-const ApplicantChart = () => {
+const ApplicantChart: React.FC<Props> = ({ applicants }) => {
+  const data = applicants.map((app) => {
+    return {
+      month: months[app.month - 1],
+      applied: app.count,
+    };
+  });
+
   return (
     <div className="mt-6">
       <ResponsiveContainer width="100%" height="100%" className="min-h-[300px]">

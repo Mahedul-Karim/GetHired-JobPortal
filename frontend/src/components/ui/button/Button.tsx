@@ -10,7 +10,7 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 
 const buttonVariants = {
   default: "bg-primary text-white disabled:bg-primary-light-0",
-  outline: "border border-solid border-primary text-primary",
+  outline: "border border-solid border-primary text-primary disabled:border-primary-light-0 disabled:text-primary-light-0",
 };
 
 const Button: React.FC<Props> = ({

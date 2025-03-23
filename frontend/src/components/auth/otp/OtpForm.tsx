@@ -20,8 +20,8 @@ const OtpForm = () => {
   const navigate = useNavigate();
 
   const { mutate, isPending } = useRequest({
-    success: () => {
-      alertSuccess("Account created successfully!");
+    success: (data:any) => {
+      alertSuccess(data.message);
       navigate("/login");
       dispatch(setSignUpData(null));
     },

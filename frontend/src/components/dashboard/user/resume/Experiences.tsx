@@ -5,8 +5,14 @@ import Heading from "../../common/Heading";
 
 import { PencilRuler } from "lucide-react";
 import ExperienceModal from "../../../ui/modals/resume/ExperienceModal";
+import { formatDate } from "../../../../util/util";
 
-const Experiences = () => {
+interface Props {
+  experiences: any[];
+  setResume: any;
+}
+
+const Experiences: React.FC<Props> = ({ experiences = [], setResume }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,23 +26,35 @@ const Experiences = () => {
             </button>
           </div>
         </div>
-        <div className="mt-4">
-          <div className="space-y-2 py-4 border-b border-solid">
-            <h3 className="text-dark-2 xs:text-lg font-semibold">
-              Senior UI / UX Designer and Developer
-            </h3>
-            <p className="xs:text-base text-sm text-gray-600">Google INC</p>
-            <p className="text-sm xs:text-base text-gray-600">
-              Worked for 6 years
-            </p>
-            <div className="text-xs xs:text-sm flex-col xs:flex-row text-gray-600 flex xs:items-center xs:gap-6 gap-4">
-              <p>Start Date: 20 Aug,2025</p>
-              <p>End Date: 20 Aug,2025</p>
+        {experiences.length > 0 &&
+          experiences.map((exp, i) => (
+            <div className="mt-4" key={i}>
+              <div className="space-y-2 py-4 border-b border-solid">
+                <h3 className="text-dark-2 xs:text-lg font-semibold">
+                  {exp?.workingPosition}
+                </h3>
+                <p className="xs:text-base text-sm text-gray-600">
+                  {exp?.companyName}
+                </p>
+                <p className="text-sm xs:text-base text-gray-600">
+                  {exp?.workedFor}
+                </p>
+                <div className="text-xs xs:text-sm flex-col xs:flex-row text-gray-600 flex xs:items-center xs:gap-6 gap-4">
+                  <p>Start Date: {formatDate(exp?.startDate)}</p>
+                  {!exp?.currentlyWorking && (
+                    <p>End Date: {formatDate(exp?.endDate)}</p>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          ))}
       </Section>
-      <ExperienceModal open={open} setOpen={setOpen} />
+      <ExperienceModal
+        open={open}
+        setOpen={setOpen}
+        experiences={experiences}
+        setResume={setResume}
+      />
     </>
   );
 };

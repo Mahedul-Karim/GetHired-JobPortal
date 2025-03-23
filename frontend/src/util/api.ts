@@ -12,10 +12,6 @@ const api = async ({ endpoint, options }: Params) => {
       credentials: "include",
     });
 
-    if (!res.ok) {
-      throw new Error(`Error ${res.status}: ${res.statusText}`);
-    }
-
     const data = await res.json();
 
     if (!data.success) {

@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import Section from "../../common/Section";
 import Heading from "../../common/Heading";
 
-import { PencilRuler } from "lucide-react";
+import { PencilRuler, X } from "lucide-react";
 import Badge from "../../../ui/Badge";
 import SkillsModal from "../../../ui/modals/resume/SkillsModal";
 
-const Skills = () => {
+interface Props {
+  skills: Array<string>;
+  setResume: any;
+}
+
+const Skills: React.FC<Props> = ({ skills = [], setResume }) => {
   const [open, setOpen] = useState(false);
+
+  const handleSkillDelete = (index: number) => {
+    const data = [...skills];
+
+    const newData = data.filter((_, i) => i !== index);
+
+    setResume((prev: any) => ({ ...prev, skills: [...newData] }));
+  };
 
   return (
     <>
@@ -21,18 +34,26 @@ const Skills = () => {
           </div>
         </div>
         <div className="mt-4 flex flex-wrap gap-4">
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            <Badge className="font-[400]">Finance</Badge>
-            
+          {skills.length > 0 &&
+            skills.map((skill, i) => (
+              <Badge
+                className="font-[400] flex items-center justify-between gap-2"
+                key={i}
+              >
+                {skill}{" "}
+                <button onClick={handleSkillDelete.bind(null, i)}>
+                  <X className="size-5" />
+                </button>
+              </Badge>
+            ))}
         </div>
       </Section>
-      <SkillsModal open={open} setOpen={setOpen}/>
+      <SkillsModal
+        open={open}
+        setOpen={setOpen}
+        skills={skills}
+        setResume={setResume}
+      />
     </>
   );
 };

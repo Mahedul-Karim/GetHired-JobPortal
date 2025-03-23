@@ -1,5 +1,11 @@
 import React from "react";
 import Avatar from "../../ui/Avatar";
+import { LogOut } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRequest } from "../../../hooks/useRequest";
+import { useAlert } from "../../../hooks/useAlert";
+import { setLogout } from "../../../store/slices/user";
+import { useNavigate } from "react-router";
 
 interface Props {
   open: boolean;
@@ -14,6 +20,35 @@ const Header: React.FC<Props> = ({
   open,
   runAnimation,
 }) => {
+  const { token, user } = useSelector((state: any) => state.user);
+
+  const dispatch = useDispatch();
+
+  const { success: onSuccess } = useAlert();
+
+  const { mutate } = useRequest({
+    success: () => {},
+    error: () => {},
+  });
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    const endpoint =
+      user.accountType === "candidate" ? "user/logout" : "user/company";
+
+    navigate("/", { replace: true });
+    dispatch(setLogout());
+    onSuccess("Logged out successfully!");
+    mutate({
+      endpoint,
+      options: {
+        headers: { authorization: `Bearer ${token}` },
+        method: "POST",
+      },
+    });
+  };
+
   return (
     <header className="bg-white shadow-md h-[70px] flex items-center justify-between px-6">
       <div
@@ -45,7 +80,14 @@ const Header: React.FC<Props> = ({
           }`}
         />
       </div>
-      <Avatar />
+      <div className="flex items-center gap-4">
+        <div className="flex items-center">
+          <button className="text-primary" onClick={handleLogout}>
+            <LogOut />
+          </button>
+        </div>
+        <Avatar />
+      </div>
     </header>
   );
 };

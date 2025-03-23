@@ -17,44 +17,7 @@ import {
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
 
-const data = [
-  {
-    month: "Jan",
-    applied: 4000,
-    responded: 2400,
-    rejected: 7400,
-  },
-  {
-    month: "Feb",
-    applied: 3000,
-    responded: 1398,
-    rejected: 9210,
-  },
-  {
-    month: "Mar",
-    applied: 2000,
-    responded: 9800,
-    rejected: 5290,
-  },
-  {
-    month: "Apr",
-    applied: 2780,
-    responded: 3908,
-    rejected: 9900,
-  },
-  {
-    month: "May",
-    applied: 1890,
-    responded: 4800,
-    rejected: 8212,
-  },
-  {
-    month: "June",
-    applied: 2390,
-    responded: 3800,
-    rejected: 7541,
-  },
-];
+
 
 const CustomToolTip = ({
   active,
@@ -112,7 +75,28 @@ const CustomToolTip = ({
   return null;
 };
 
-const ActivityChart = () => {
+interface Props {
+  chartData: {
+    month: number;
+    applied: number;
+    rejected: number;
+    responded: number;
+  }[];
+}
+
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+
+const ActivityChart: React.FC<Props> = ({ chartData }) => {
+
+  const data = chartData.map(chart=>{
+    return {
+      month:months[chart.month - 1],
+      applied:chart.applied,
+      rejected:chart.rejected,
+      responded:chart.responded
+    }
+  })
+
   return (
     <div className="mt-6">
       <ResponsiveContainer width="100%" height="100%" className="min-h-[300px]">

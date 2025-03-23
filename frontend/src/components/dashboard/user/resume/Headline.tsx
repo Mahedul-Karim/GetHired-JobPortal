@@ -4,7 +4,15 @@ import Heading from "../../common/Heading";
 import { PencilRuler } from "lucide-react";
 import HeadlineEditor from "../../../ui/modals/resume/HeadlineEditor";
 
-const Headline = () => {
+interface Props {
+  headline: string;
+  setResume: any;
+}
+
+const Headline: React.FC<Props> = ({
+  headline,
+  setResume,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,9 +26,13 @@ const Headline = () => {
             </button>
           </div>
         </div>
-        <h4 className="mt-4 text-gray-600">Web Developer and designer</h4>
+        <h4 className="mt-4 text-gray-600">{headline}</h4>
       </Section>
-      <HeadlineEditor open={open} setOpen={setOpen} />
+      <HeadlineEditor
+        open={open}
+        setOpen={setOpen}
+        setResume={setResume}
+      />
     </>
   );
 };
