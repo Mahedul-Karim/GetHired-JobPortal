@@ -59,9 +59,11 @@ const ExperienceModal: React.FC<Props> = ({
   const handleSubmit = () => {
     const filteredValues = Object.fromEntries(
       Object.entries(state).filter(
-        ([key, _]) => state[key] && state[key] !== ""
+        ([_, value]) => value !== null && value !== ""
       )
     );
+
+    
 
     setResume({ experiences: [...experiences, filteredValues] });
     dispatch({ type: "reset" });
