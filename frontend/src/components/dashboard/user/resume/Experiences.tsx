@@ -40,9 +40,9 @@ const Experiences: React.FC<Props> = ({ experiences = [], setResume }) => {
                   {exp?.workedFor}
                 </p>
                 <div className="text-xs xs:text-sm flex-col xs:flex-row text-gray-600 flex xs:items-center xs:gap-6 gap-4">
-                  <p>Start Date: {formatDate(exp?.startDate)}</p>
+                  <p>Start Date: {formatDate(new Date(exp?.startDate))}</p>
                   {!exp?.currentlyWorking && (
-                    <p>End Date: {formatDate(exp?.endDate)}</p>
+                    <p>End Date: {formatDate(new Date(exp?.endDate))}</p>
                   )}
                 </div>
               </div>

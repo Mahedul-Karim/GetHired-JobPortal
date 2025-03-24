@@ -1,4 +1,4 @@
-import React, { useState,useReducer } from "react";
+import React, { useState, useReducer } from "react";
 import Input from "../../form/Input";
 import Modal from "../Modal";
 import Button from "../../button/Button";
@@ -12,14 +12,31 @@ interface Props {
   setResume: any;
 }
 
-const initialValues={
-  title:""
-}
+const initialValues = {
+  workingPosition: "",
+  currentlyWorking: false,
+  companyName: "",
+  workedFor: "",
+  startDate: null,
+  endDate: null,
+  description: "",
+};
 
-const reducer = (state,action)=>{
-  console.log(state,action);
-  return state;
-}
+const reducer = (state: any, action: any) => {
+  if (typeof action.type !== "string") {
+    console.error("Invalid action type!");
+    return state;
+  }
+
+  if (action.type === "reset") {
+    return initialValues;
+  }
+
+  return {
+    ...state,
+    [action.type]: action.value,
+  };
+};
 
 const ExperienceModal: React.FC<Props> = ({
   open,
@@ -27,26 +44,57 @@ const ExperienceModal: React.FC<Props> = ({
   experiences,
   setResume,
 }) => {
+  const [state, dispatch] = useReducer(reducer, initialValues);
 
-  const [state,dispatch] = useReducer(reducer,initialValues);
+  const {
+    currentlyWorking,
+    workingPosition,
+    companyName,
+    workedFor,
+    startDate,
+    endDate,
+    description,
+  } = state;
 
-  const [currentlyWorking, setCurrentlyWorking] = useState(false);
-  
-  const handleSubmit=()=>{
-    dispatch('hello world')
-  }
+  const handleSubmit = () => {
+    const filteredValues = Object.fromEntries(
+      Object.entries(state).filter(
+        ([key, _]) => state[key] && state[key] !== ""
+      )
+    );
 
-  console.log(state)
+    setResume({ experiences: [...experiences, filteredValues] });
+    dispatch({ type: "reset" });
+    setOpen(false);
+  };
 
   return (
     <Modal open={open} setOpen={setOpen} modalTitle="Experience">
       <form className="space-y-4">
-        <Input placeholder="Enter your position" label="Working Title" />
-        <Input placeholder="Enter your company name" label="Company" />
+        <Input
+          placeholder="Enter your position"
+          label="Working Title"
+          value={workingPosition}
+          onChange={(e) =>
+            dispatch({ type: "workingPosition", value: e.target.value })
+          }
+        />
+        <Input
+          placeholder="Enter your company name"
+          label="Company"
+          value={companyName}
+          onChange={(e) =>
+            dispatch({ type: "companyName", value: e.target.value })
+          }
+        />
         <Input
           placeholder="Worked or Working for"
           label="Experience"
           type="text"
+          value={workedFor}
+          onChange={(e) =>
+            dispatch({ type: "workedFor", value: e.target.value })
+          }
         />
         <div>
           <label className="font-medium mb-1 inline-block text-dark-2">
@@ -59,7 +107,9 @@ const ExperienceModal: React.FC<Props> = ({
               value="yes"
               label="Yes"
               checked={currentlyWorking}
-              onChange={() => setCurrentlyWorking(true)}
+              onChange={() =>
+                dispatch({ type: "currentlyWorking", value: true })
+              }
             />
             <Checkbox
               name="Working"
@@ -67,7 +117,9 @@ const ExperienceModal: React.FC<Props> = ({
               value="no"
               label="No"
               checked={!currentlyWorking}
-              onChange={() => setCurrentlyWorking(false)}
+              onChange={() =>
+                dispatch({ type: "currentlyWorking", value: false })
+              }
             />
           </div>
           <div className="flex flex-col xs:flex-row xs:items-center gap-4 mt-4">
@@ -76,6 +128,10 @@ const ExperienceModal: React.FC<Props> = ({
               label="Working From"
               type="date"
               containerClass="w-full"
+              value={startDate ? startDate.toISOString().split("T")[0] : ""}
+              onChange={(e) =>
+                dispatch({ type: "startDate", value: new Date(e.target.value) })
+              }
             />
             {!currentlyWorking && (
               <Input
@@ -83,6 +139,10 @@ const ExperienceModal: React.FC<Props> = ({
                 label="Worked Till"
                 type="date"
                 containerClass="w-full"
+                value={endDate ? endDate.toISOString().split("T")[0] : ""}
+                onChange={(e) =>
+                  dispatch({ type: "endDate", value: new Date(e.target.value) })
+                }
               />
             )}
           </div>
@@ -90,8 +150,12 @@ const ExperienceModal: React.FC<Props> = ({
         <TextArea
           placeholder="Extra Description"
           label="Write Description(optional)"
+          value={description}
+          onChange={(e) =>
+            dispatch({ type: "description", value: e.target.value })
+          }
         />
-        <Button>Submit</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
       </form>
     </Modal>
   );
