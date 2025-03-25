@@ -93,6 +93,7 @@ const createResume = catchAsyncError(async (req, res, next) => {
   res.status(201).json({
     success: true,
     resume,
+    message:'Resume generated successfully'
   });
 });
 

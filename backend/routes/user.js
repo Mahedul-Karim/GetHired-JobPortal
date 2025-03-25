@@ -21,7 +21,7 @@ router
   .patch(verifyUser, upload.single("avatar"), updateUserProfile)
   .get(verifyUser, getAppliedJobs);
 router.route("/company").post(verifyEmployer, logOut);
-router.route("/logout").post(verifyUser, logOut);
+router.route("/logout").post(logOut);
 router.route("/state").get(verifyUser, userStates);
 
 export default router;
