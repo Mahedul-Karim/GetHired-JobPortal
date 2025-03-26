@@ -8,18 +8,12 @@ interface Props {
   education: any[];
   setResume: any;
   haveResume: boolean;
-  setNewResume: any;
-  isUpdating: boolean;
-  updateResume: any;
 }
 
 const Education: React.FC<Props> = ({
   education = [],
   setResume,
-  haveResume,
-  setNewResume,
-  isUpdating,
-  updateResume,
+  haveResume
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -58,9 +52,6 @@ const Education: React.FC<Props> = ({
         education={education}
         setResume={setResume}
         haveResume={haveResume}
-        setNewResume={setNewResume}
-        isUpdating={isUpdating}
-        updateResume={updateResume}
       />
     </>
   );

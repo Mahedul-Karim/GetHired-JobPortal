@@ -3,6 +3,8 @@ import Button from "../../button/Button";
 import Input from "../../form/Input";
 import Modal from "../Modal";
 import TextArea from "../../form/TextArea";
+import { useAlert } from "../../../../hooks/useAlert";
+import { useResume } from "../../../../hooks/useResume";
 
 interface Props {
   open: boolean;
@@ -10,9 +12,6 @@ interface Props {
   education: any[];
   setResume: any;
   haveResume: boolean;
-  setNewResume: any;
-  isUpdating: boolean;
-  updateResume: any;
 }
 
 const initialValues = {
@@ -43,10 +42,24 @@ const EducationModal: React.FC<Props> = ({
   setOpen,
   education,
   setResume,
+  haveResume,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
   const { degree, university, startDate, endDate } = state;
+
+  const { success: onSuccess, error: onError } = useAlert();
+
+  const { mutate, isPending } = useResume({
+    success: () => {
+      dispatch({ type: "reset" });
+      onSuccess("Education updated successfully!");
+    },
+    error: (err: any) => {
+      onError(err);
+    },
+    setOpen,
+  });
 
   const handleSubmit = () => {
     const filteredValues = Object.fromEntries(
@@ -55,12 +68,20 @@ const EducationModal: React.FC<Props> = ({
       )
     );
 
-    setResume((prev: any) => ({
-      ...prev,
-      education: [...education, filteredValues],
-    }));
-    dispatch({ type: "reset" });
-    setOpen(false);
+    if (!haveResume) {
+      setResume((prev: any) => ({
+        ...prev,
+        education: [...education, filteredValues],
+      }));
+      dispatch({ type: "reset" });
+      setOpen(false);
+
+      return;
+    }
+
+    const body = JSON.stringify({ education: [...education, filteredValues] });
+
+    mutate({ body });
   };
 
   return (
@@ -102,7 +123,7 @@ const EducationModal: React.FC<Props> = ({
           placeholder="Extra Description"
           label="Write Description(optional)"
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} disabled={isPending} >Submit</Button>
       </div>
     </Modal>
   );

@@ -9,14 +9,12 @@ interface Props {
   projects: any[];
   setResume: any;
   haveResume: boolean;
-  setNewResume: any;
 }
 
 const Projects: React.FC<Props> = ({
   projects = [],
   setResume,
-  haveResume,
-  setNewResume
+  haveResume
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -70,7 +68,6 @@ const Projects: React.FC<Props> = ({
         projects={projects}
         setResume={setResume}
         haveResume={haveResume}
-        setNewResume={setNewResume}
       />
     </>
   );

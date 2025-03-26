@@ -3,6 +3,8 @@ import React, { useReducer, useState } from "react";
 import Button from "../../button/Button";
 import Input from "../../form/Input";
 import Modal from "../Modal";
+import { useAlert } from "../../../../hooks/useAlert";
+import { useResume } from "../../../../hooks/useResume";
 
 interface Props {
   open: boolean;
@@ -10,7 +12,6 @@ interface Props {
   projects: any[];
   setResume: any;
   haveResume: boolean;
-  setNewResume: any;
 }
 
 const TechstackBadge = ({
@@ -59,12 +60,26 @@ const ProjectsModal: React.FC<Props> = ({
   setOpen,
   projects,
   setResume,
+  haveResume,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
   const [technology, setTechnology] = useState("");
 
   const { name, projectLink, technologies } = state;
+
+  const { success: onSuccess, error: onError } = useAlert();
+
+  const { mutate, isPending } = useResume({
+    success: () => {
+      dispatch({ type: "reset" });
+      onSuccess("Projects updated successfully!");
+    },
+    error: (err: any) => {
+      onError(err);
+    },
+    setOpen,
+  });
 
   const handleSubmit = () => {
     const filteredValues = Object.fromEntries(
@@ -73,12 +88,19 @@ const ProjectsModal: React.FC<Props> = ({
       )
     );
 
-    setResume((prev: any) => ({
-      ...prev,
-      projects: [...projects, filteredValues],
-    }));
-    dispatch({ type: "reset" });
-    setOpen(false);
+    if (!haveResume) {
+      setResume((prev: any) => ({
+        ...prev,
+        projects: [...projects, filteredValues],
+      }));
+      dispatch({ type: "reset" });
+      setOpen(false);
+      return;
+    }
+
+    const body = JSON.stringify({ projects: [...projects, filteredValues] });
+
+    mutate({ body });
   };
 
   const onDelete = (index: number) => {
@@ -141,7 +163,9 @@ const ProjectsModal: React.FC<Props> = ({
             </Button>
           </div>
         </div>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} disabled={isPending}>
+          Submit
+        </Button>
       </div>
     </Modal>
   );

@@ -3,6 +3,8 @@ import Modal from "../Modal";
 import Input from "../../form/Input";
 import Button from "../../button/Button";
 import { X } from "lucide-react";
+import { useAlert } from "../../../../hooks/useAlert";
+import { useResume } from "../../../../hooks/useResume";
 
 interface Props {
   open: boolean;
@@ -10,9 +12,6 @@ interface Props {
   setResume: any;
   skills: Array<string>;
   haveResume: boolean;
-  setNewResume: any;
-  isUpdating: boolean;
-  updateResume: any;
 }
 
 const SkillsBadge = ({
@@ -34,14 +33,39 @@ const SkillsBadge = ({
   );
 };
 
-const SkillsModal: React.FC<Props> = ({ open, setOpen, skills, setResume }) => {
+const SkillsModal: React.FC<Props> = ({
+  open,
+  setOpen,
+  skills,
+  setResume,
+  haveResume,
+}) => {
   const [data, setData] = useState<any[]>([]);
   const [text, setText] = useState("");
 
+  const { success: onSuccess, error: onError } = useAlert();
+
+  const { mutate, isPending } = useResume({
+    success: () => {
+      setData([]);
+      onSuccess("Skills updated successfully!");
+    },
+    error: (err: any) => {
+      onError(err);
+    },
+    setOpen,
+  });
+
   const handleSkillAdd = () => {
-    setResume((prev: any) => ({ ...prev, skills: [...skills, ...data] }));
-    setOpen(false);
-    setData([]);
+    if (!haveResume) {
+      setResume((prev: any) => ({ ...prev, skills: [...skills, ...data] }));
+      setOpen(false);
+      setData([]);
+      return;
+    }
+
+    const body = JSON.stringify({ skills: [...skills, ...data] });
+    mutate({ body });
   };
 
   const handleSkillDelete = (index: number) => {
@@ -99,7 +123,9 @@ const SkillsModal: React.FC<Props> = ({ open, setOpen, skills, setResume }) => {
             </Button>
           </div>
         </div>
-        <Button onClick={handleSkillAdd}>Submit</Button>
+        <Button onClick={handleSkillAdd} disabled={isPending}>
+          Submit
+        </Button>
       </div>
     </Modal>
   );

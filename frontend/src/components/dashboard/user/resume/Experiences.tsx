@@ -11,18 +11,12 @@ interface Props {
   experiences: any[];
   setResume: any;
   haveResume: boolean;
-  setNewResume: any;
-  isUpdating: boolean;
-  updateResume: any;
 }
 
 const Experiences: React.FC<Props> = ({
   experiences = [],
   setResume,
-  haveResume,
-  setNewResume,
-  isUpdating,
-  updateResume,
+  haveResume
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -66,9 +60,6 @@ const Experiences: React.FC<Props> = ({
         experiences={experiences}
         setResume={setResume}
         haveResume={haveResume}
-        setNewResume={setNewResume}
-        isUpdating={isUpdating}
-        updateResume={updateResume}
       />
     </>
   );

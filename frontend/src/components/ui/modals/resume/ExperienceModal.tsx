@@ -4,6 +4,8 @@ import Modal from "../Modal";
 import Button from "../../button/Button";
 import Checkbox from "../../check/Checkbox";
 import TextArea from "../../form/TextArea";
+import { useAlert } from "../../../../hooks/useAlert";
+import { useResume } from "../../../../hooks/useResume";
 
 interface Props {
   open: boolean;
@@ -11,9 +13,6 @@ interface Props {
   experiences: any[];
   setResume: any;
   haveResume: boolean;
-  setNewResume: any;
-  isUpdating: boolean;
-  updateResume: any;
 }
 
 const initialValues = {
@@ -47,8 +46,22 @@ const ExperienceModal: React.FC<Props> = ({
   setOpen,
   experiences,
   setResume,
+  haveResume,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
+
+  const { success: onSuccess, error: onError } = useAlert();
+
+  const { mutate, isPending } = useResume({
+    success: () => {
+      dispatch({ type: "reset" });
+      onSuccess("Experience updated successfully!");
+    },
+    error: (err: any) => {
+      onError(err);
+    },
+    setOpen,
+  });
 
   const {
     currentlyWorking,
@@ -67,12 +80,20 @@ const ExperienceModal: React.FC<Props> = ({
       )
     );
 
-    setResume((prev: any) => ({
-      ...prev,
+    if (!haveResume) {
+      setResume((prev: any) => ({
+        ...prev,
+        experiences: [...experiences, filteredValues],
+      }));
+      dispatch({ type: "reset" });
+      setOpen(false);
+      return;
+    }
+
+    const body = JSON.stringify({
       experiences: [...experiences, filteredValues],
-    }));
-    dispatch({ type: "reset" });
-    setOpen(false);
+    });
+    mutate({ body });
   };
 
   return (
@@ -162,7 +183,7 @@ const ExperienceModal: React.FC<Props> = ({
             dispatch({ type: "description", value: e.target.value })
           }
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} disabled={isPending} >Submit</Button>
       </form>
     </Modal>
   );
