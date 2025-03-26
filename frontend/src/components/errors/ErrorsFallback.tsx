@@ -1,5 +1,6 @@
 import React from "react";
 import Container from "../layout/Container";
+import Error from "../ui/Error";
 
 interface Props {
   error: string | null;
@@ -9,8 +10,8 @@ interface Props {
 const ErrorsFallback: React.FC<Props> = ({ error, errorFor = "default" }) => {
   if (errorFor === "default") {
     return (
-      <Container className="mt-60">
-        <h1 className="text-4xl text-red-800">{error}</h1>
+      <Container>
+        <Error text={error!} />
       </Container>
     );
   }

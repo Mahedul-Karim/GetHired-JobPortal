@@ -7,11 +7,13 @@ import HeadlineEditor from "../../../ui/modals/resume/HeadlineEditor";
 interface Props {
   headline: string;
   setResume: any;
+  haveResume: boolean;
 }
 
 const Headline: React.FC<Props> = ({
   headline,
   setResume,
+  haveResume
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -32,6 +34,7 @@ const Headline: React.FC<Props> = ({
         open={open}
         setOpen={setOpen}
         setResume={setResume}
+        haveResume={haveResume}
       />
     </>
   );

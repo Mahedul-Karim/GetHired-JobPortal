@@ -9,18 +9,21 @@ import SkillsModal from "../../../ui/modals/resume/SkillsModal";
 interface Props {
   skills: Array<string>;
   setResume: any;
+  haveResume: boolean;
+  setNewResume: any;
+  isUpdating: boolean;
+  updateResume: any;
 }
 
-const Skills: React.FC<Props> = ({ skills = [], setResume }) => {
+const Skills: React.FC<Props> = ({
+  skills = [],
+  setResume,
+  haveResume,
+  setNewResume,
+  isUpdating,
+  updateResume,
+}) => {
   const [open, setOpen] = useState(false);
-
-  const handleSkillDelete = (index: number) => {
-    const data = [...skills];
-
-    const newData = data.filter((_, i) => i !== index);
-
-    setResume((prev: any) => ({ ...prev, skills: [...newData] }));
-  };
 
   return (
     <>
@@ -36,14 +39,8 @@ const Skills: React.FC<Props> = ({ skills = [], setResume }) => {
         <div className="mt-4 flex flex-wrap gap-4">
           {skills.length > 0 &&
             skills.map((skill, i) => (
-              <Badge
-                className="font-[400] flex items-center justify-between gap-2"
-                key={i}
-              >
-                {skill}{" "}
-                <button onClick={handleSkillDelete.bind(null, i)}>
-                  <X className="size-5" />
-                </button>
+              <Badge className="font-[400]" key={i}>
+                {skill}
               </Badge>
             ))}
         </div>
@@ -53,6 +50,10 @@ const Skills: React.FC<Props> = ({ skills = [], setResume }) => {
         setOpen={setOpen}
         skills={skills}
         setResume={setResume}
+        haveResume={haveResume}
+        setNewResume={setNewResume}
+        isUpdating={isUpdating}
+        updateResume={updateResume}
       />
     </>
   );

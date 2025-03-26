@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "../Modal";
 import Input from "../../form/Input";
 import Button from "../../button/Button";
@@ -9,6 +9,10 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setResume: any;
   skills: Array<string>;
+  haveResume: boolean;
+  setNewResume: any;
+  isUpdating: boolean;
+  updateResume: any;
 }
 
 const SkillsBadge = ({
@@ -48,6 +52,15 @@ const SkillsModal: React.FC<Props> = ({ open, setOpen, skills, setResume }) => {
     setData(newSkills);
   };
 
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key.toLowerCase() !== "enter") {
+      return;
+    }
+
+    setData((prev: any) => [...prev, text]);
+    setText("");
+  };
+
   return (
     <Modal open={open} setOpen={setOpen} modalTitle="Edit Skills">
       <div className="space-y-4">
@@ -59,6 +72,7 @@ const SkillsModal: React.FC<Props> = ({ open, setOpen, skills, setResume }) => {
             onChange={(e) => {
               setText(e.target.value);
             }}
+            onKeyDown={onEnter}
           />
           <div className="flex justify-between gap-2 mt-4">
             <div className="flex gap-2 flex-wrap">

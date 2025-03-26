@@ -10,6 +10,10 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   experiences: any[];
   setResume: any;
+  haveResume: boolean;
+  setNewResume: any;
+  isUpdating: boolean;
+  updateResume: any;
 }
 
 const initialValues = {
@@ -63,9 +67,10 @@ const ExperienceModal: React.FC<Props> = ({
       )
     );
 
-    
-
-    setResume({ experiences: [...experiences, filteredValues] });
+    setResume((prev: any) => ({
+      ...prev,
+      experiences: [...experiences, filteredValues],
+    }));
     dispatch({ type: "reset" });
     setOpen(false);
   };

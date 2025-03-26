@@ -6,6 +6,7 @@ import { useRequest } from "../../../hooks/useRequest";
 import { useAlert } from "../../../hooks/useAlert";
 import { setLogout } from "../../../store/slices/user";
 import { useNavigate } from "react-router";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   open: boolean;
@@ -20,14 +21,18 @@ const Header: React.FC<Props> = ({
   open,
   runAnimation,
 }) => {
-  const { token, user } = useSelector((state: any) => state.user);
+  const { user } = useSelector((state: any) => state.user);
 
   const dispatch = useDispatch();
 
   const { success: onSuccess } = useAlert();
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useRequest({
-    success: () => {},
+    success: () => {
+      queryClient.clear();
+    },
     error: () => {},
   });
 
@@ -43,7 +48,6 @@ const Header: React.FC<Props> = ({
     mutate({
       endpoint,
       options: {
-        headers: { authorization: `Bearer ${token}` },
         method: "POST",
       },
     });

@@ -10,9 +10,20 @@ import { formatDate } from "../../../../util/util";
 interface Props {
   experiences: any[];
   setResume: any;
+  haveResume: boolean;
+  setNewResume: any;
+  isUpdating: boolean;
+  updateResume: any;
 }
 
-const Experiences: React.FC<Props> = ({ experiences = [], setResume }) => {
+const Experiences: React.FC<Props> = ({
+  experiences = [],
+  setResume,
+  haveResume,
+  setNewResume,
+  isUpdating,
+  updateResume,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -54,6 +65,10 @@ const Experiences: React.FC<Props> = ({ experiences = [], setResume }) => {
         setOpen={setOpen}
         experiences={experiences}
         setResume={setResume}
+        haveResume={haveResume}
+        setNewResume={setNewResume}
+        isUpdating={isUpdating}
+        updateResume={updateResume}
       />
     </>
   );

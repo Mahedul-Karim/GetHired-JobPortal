@@ -8,6 +8,7 @@ const createResume = catchAsyncError(async (req, res, next) => {
 
   const resumeData = req.body;
 
+
   const existingResumeForUser = await Resume.findOne({ user: userId });
 
   if (existingResumeForUser) {

@@ -5,8 +5,26 @@ import { PencilRuler } from "lucide-react";
 import Badge from "../../../ui/Badge";
 import ProjectsModal from "../../../ui/modals/resume/ProjectsModal";
 
-const Projects = () => {
+interface Props {
+  projects: any[];
+  setResume: any;
+  haveResume: boolean;
+  setNewResume: any;
+}
+
+const Projects: React.FC<Props> = ({
+  projects = [],
+  setResume,
+  haveResume,
+  setNewResume
+}) => {
   const [open, setOpen] = useState(false);
+
+  const formatUrl = (url: string) => {
+    return url.startsWith("http://") || url.startsWith("https://")
+      ? url
+      : `https://${url}`;
+  };
 
   return (
     <>
@@ -20,28 +38,40 @@ const Projects = () => {
           </div>
         </div>
         <div className="mt-4">
-          <div className="space-y-2 py-4 border-b border-solid">
-            <h3 className="text-dark-2 xs:text-lg font-semibold">
-              Full Stack e-commerce website
-            </h3>
-            <a
-              href=""
-              target="_blank"
-              className="xs:text-base text-sm text-primary underline !my-4 block"
-            >
-              www.google.com
-            </a>
-            <div className="!mt-4 flex flex-wrap gap-4">
-              <Badge className="font-[400]">React Js</Badge>
-              <Badge className="font-[400]">Express Js</Badge>
-              <Badge className="font-[400]">Node Js</Badge>
-              <Badge className="font-[400]">MongoDB</Badge>
-              <Badge className="font-[400]">Mongoose</Badge>
-            </div>
-          </div>
+          {projects.length > 0 &&
+            projects.map((project, i) => (
+              <div className="space-y-2 py-4 border-b border-solid" key={i}>
+                <h3 className="text-dark-2 xs:text-lg font-semibold">
+                  {project?.name}
+                </h3>
+                <a
+                  href={formatUrl(project?.projectLink)}
+                  target="_blank"
+                  className="xs:text-base text-sm text-primary underline !my-4 block"
+                >
+                  {project?.projectLink}
+                </a>
+
+                <div className="!mt-4 flex flex-wrap gap-4">
+                  {project?.technologies?.length > 0 &&
+                    project?.technologies?.map((tech: string, i: number) => (
+                      <Badge className="font-[400]" key={i}>
+                        {tech}
+                      </Badge>
+                    ))}
+                </div>
+              </div>
+            ))}
         </div>
       </Section>
-      <ProjectsModal open={open} setOpen={setOpen} />
+      <ProjectsModal
+        open={open}
+        setOpen={setOpen}
+        projects={projects}
+        setResume={setResume}
+        haveResume={haveResume}
+        setNewResume={setNewResume}
+      />
     </>
   );
 };
