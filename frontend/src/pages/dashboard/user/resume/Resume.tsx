@@ -72,7 +72,11 @@ const Resume = () => {
 
   const queryClient = useQueryClient();
 
-  const { data, isPending, error } = useData({
+  const {
+    data,
+    isPending,
+    error,
+  }: { data: any; isPending: boolean; error: any } = useData({
     key: ["user-resume"],
     endpoint: "resume",
     options: {

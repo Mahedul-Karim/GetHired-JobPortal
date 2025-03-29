@@ -10,6 +10,7 @@ type MutationParams = {
 interface Params<TData> {
   success: (data: TData) => void;
   error: (message: string) => void;
+  onMutate?: (val: any) => void;
 }
 
 export const useRequest = <TData>({ success, error }: Params<TData>) => {
@@ -19,12 +20,10 @@ export const useRequest = <TData>({ success, error }: Params<TData>) => {
     onSuccess: (data) => {
       success(data);
     },
-    onError: (err) => {
+    onError: (err, variables, context) => {
       error(err.message || "Something went wrong");
     },
   });
 
   return data;
 };
-
-

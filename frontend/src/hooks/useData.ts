@@ -5,16 +5,19 @@ import { api } from "../util/api";
 interface Props<T> {
   key: Array<T>;
   endpoint: string;
-  options?:RequestInit;
+  options?: RequestInit;
 }
 
-export const useData = <T>({ key, endpoint,options }: Props<T>) => {
+export const useData = <T>({
+  key,
+  endpoint,
+  options
+}: Props<T>) => {
   const data = useQuery({
-    queryKey: key,
+    queryKey: [...key],
     queryFn: () => api({ endpoint, options }),
     retry: false,
   });
 
   return data;
 };
-
