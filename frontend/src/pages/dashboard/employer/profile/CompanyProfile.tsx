@@ -27,12 +27,12 @@ const CompanyProfile = () => {
         <BasicInfo user={user} token={token} />
       </Section>
       <Section>
-        <Heading className="border-b border-solid pb-4">Photo Gallery</Heading>
-        <Gallery />
+        <Heading className="border-b border-solid pb-4">Photo Gallery (optional)</Heading>
+        <Gallery user={user} token={token} />
       </Section>
       <Section>
         <Heading className="border-b border-solid pb-4">Social Network</Heading>
-        <SocialLinks />
+        <SocialLinks user={user} token={token} />
       </Section>
     </>
   );

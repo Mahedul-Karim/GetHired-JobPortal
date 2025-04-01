@@ -1,4 +1,7 @@
-import { deleteFromCloudinary, uploadToCloudinary } from "../config/cloudinary.js";
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+} from "../config/cloudinary.js";
 import { Company } from "../models/company.js";
 import { Candidate } from "../models/company/Candidate.js";
 import { CompantState } from "../models/company/State.js";
@@ -95,12 +98,26 @@ const updateCompanyProfile = catchAsyncError(async (req, res, next) => {
 
   const existingAvatar = req.company.companyLogo?.public_id || null;
   const existingBanner = req.company.companyBanner?.public_id || null;
+  const existingGalleryItems =
+    req.company.photoGallery?.length > 0 ? true : false;
 
-  let gallery=[];
+  console.log(existingGalleryItems);
+
+  let gallery = [];
   let companyLogo = null;
   let companyBanner = null;
 
   if (req.files?.galleryItems && req.files.galleryItems.length > 0) {
+    if (existingGalleryItems) {
+      await Promise.all(
+        req.company.photoGallery.map(async (gal) => {
+          const result = await deleteFromCloudinary(gal.public_id);
+
+          return result;
+        })
+      );
+    }
+
     gallery = await Promise.all(
       req.files.galleryItems.map(async (file) => {
         const result = await uploadToCloudinary(file);

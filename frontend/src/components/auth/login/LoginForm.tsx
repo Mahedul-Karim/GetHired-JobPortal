@@ -62,7 +62,7 @@ const LoginForm = () => {
         className="mt-8 space-y-4 px-4 lg:px-8"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex items-center gap-1 bg-primary-light-2 w-max rounded-full p-1 xs:p-2 relative z-[1]">
+        <div className="flex items-center gap-1 bg-[#d4e6ff]/[0.4] w-max rounded-full p-1 xs:p-2 relative z-[1]">
           <div
             className="px-3 xs:px-4 py-2 rounded-full absolute xs:left-2 left-1 top-1 xs:top-2 bg-primary max-w-[112px] xs:max-w-[120px] w-full h-10 z-[-1] transition-all duration-300"
             ref={bgRef}

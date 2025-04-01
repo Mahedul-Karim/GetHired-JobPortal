@@ -53,6 +53,7 @@ const CvManager = () => {
     },
   });
 
+
   useEffect(() => {
     if (data?.cv) {
       setUserCv(data?.cv);

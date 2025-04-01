@@ -39,7 +39,7 @@ const companySchema = new Schema(
       type: String,
     },
     description: {
-      type: Number,
+      type: String,
     },
     photoGallery: [
       {
@@ -56,7 +56,7 @@ const companySchema = new Schema(
     twitter: {
       type: String,
     },
-    whatsapp: {
+    instagram: {
       type: String,
     },
     linkedin: {

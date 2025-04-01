@@ -34,11 +34,10 @@ const calculateProfileCompletion = (profileType, schema) => {
     website: 7,
     establishedAt: 5,
     description: 10,
-    photoGallery: 5,
     comapnyLocation: 8,
-    facebook: 5,
-    twitter: 5,
-    whatsapp: 5,
+    facebook: 7,
+    twitter: 7,
+    instagram: 6,
     linkedin: 5,
   };
 
