@@ -1,33 +1,44 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
+
+const { Schema, model,models } = mongoose;
 
 const jobSchema = new Schema(
   {
     title: {
       type: String,
+      required:true
     },
     category: {
       type: String,
+      required:true
     },
     jobType: {
       type: String,
+      required:true
     },
     salary: {
       type: Number,
+      required:true
     },
     experience: {
       type: String,
+      required:true
     },
     qualification: {
       type: String,
+      required:true
     },
     gender: {
       type: String,
+      required:true
     },
     jobLocation: {
       type: String,
+      required:true
     },
     vacancy: {
       type: Number,
+      required:true
     },
     gotHired: {
       type: Number,
@@ -52,19 +63,23 @@ const jobSchema = new Schema(
     },
     jobDescription: {
       type: String,
+      required:true
     },
     requirements: [
       {
         type: String,
+        required:true
       },
     ],
     responsibilities: [
       {
         type: String,
+        required:true
       },
     ],
     deadline: {
       type: Date,
+      required:true
     },
     employer: {
       type: Schema.Types.ObjectId,
@@ -79,4 +94,4 @@ const jobSchema = new Schema(
   }
 );
 
-export const Job = model("Job", jobSchema);
+export const Job = models.Job || model("Job", jobSchema);

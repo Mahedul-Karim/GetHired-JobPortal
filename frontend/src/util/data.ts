@@ -27,34 +27,42 @@ export const CATEGORIES_DATA = [
   {
     label: "Frontend Developer",
     image: "/assets/vectors/frontend.jpg",
+    value: "frontendDeveloper",
   },
   {
     label: "Backend Developer",
     image: "/assets/vectors/backend.jpg",
+    value: "backendDeveloper",
   },
   {
     label: "Content Writting",
     image: "/assets/vectors/content.png",
+    value: "contentWritting",
   },
   {
     label: "Database Management",
     image: "/assets/vectors/database.jpg",
+    value: "databaseManagement",
   },
   {
     label: "Digital Marketing",
     image: "/assets/vectors/digital.png",
+    value: "digitalMarketing",
   },
   {
     label: "Graphics Designer",
     image: "/assets/vectors/graphics.png",
+    value: "graphicsDesigner",
   },
   {
     label: "Project Management",
     image: "/assets/vectors/management.jpg",
+    value: "projectManagement",
   },
   {
     label: "Video Editing",
     image: "/assets/vectors/video-edit.png",
+    value: "videoEditing",
   },
 ];
 
@@ -78,5 +86,28 @@ export const TESTIMONIAL_DATA = [
     job: "It Consultant",
     review: `"GetHired is a game-changer in the job portal space. The personalized recommendations and real-time application tracking feature set it apart from other job boards. I found my dream role thanks to this platform!"`,
     image: "/assets/testimonial3.avif",
+  },
+];
+
+export const JOB_TYPES = [
+  {
+    label: "All",
+    value: "all",
+  },
+  {
+    label: "Full Time",
+    value: "fullTime",
+  },
+  {
+    label: "Part Time",
+    value: "partTime",
+  },
+  {
+    label: "Freelance",
+    value: "freelance",
+  },
+  {
+    label: "Intern",
+    value: "intern",
   },
 ];

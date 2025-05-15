@@ -1,37 +1,27 @@
 import React from "react";
 import Heading from "../Heading";
 import Checkbox from "../../../../ui/check/Checkbox";
+import { JOB_TYPES } from "../../../../../util/data";
 
-const JobType = () => {
+interface Props {
+  setType: (val: string) => void;
+}
+
+const JobType: React.FC<Props> = ({ setType }) => {
   return (
     <div>
       <Heading>JobType</Heading>
       <div className="my-3 space-y-2">
-        <Checkbox name="job-type" checkId="type-0" value="all" label="All" />
-        <Checkbox
-          name="job-type"
-          checkId="type-1"
-          value="fullTime"
-          label="Full Time"
-        />
-        <Checkbox
-          name="job-type"
-          checkId="type-2"
-          value="partTime"
-          label="Part Time"
-        />
-        <Checkbox
-          name="job-type"
-          checkId="type-3"
-          value="freelance"
-          label="Freelance"
-        />
-        <Checkbox
-          name="job-type"
-          checkId="type-4"
-          value="intern"
-          label="Intern"
-        />
+        {JOB_TYPES.map((type, i) => (
+          <Checkbox
+            name="job-type"
+            checkId={`type-${i}`}
+            key={i}
+            value={type.value}
+            label={type.label}
+            onChange={(e) => setType(e.target.value)}
+          />
+        ))}
       </div>
     </div>
   );

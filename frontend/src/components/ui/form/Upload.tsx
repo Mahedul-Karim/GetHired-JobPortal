@@ -7,7 +7,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   fileId: string | number;
   uploadType: "pdf" | "image";
-  setFile: (val: File, size?: string) => void;
+  setFile?: (val: File, size?: string) => void;
 }
 
 const Upload: React.FC<Props> = ({
@@ -42,7 +42,7 @@ const Upload: React.FC<Props> = ({
       error("file is bigger then 10mb");
       return;
     }
-
+    //@ts-ignore
     setFile(file, fileSize);
   };
 

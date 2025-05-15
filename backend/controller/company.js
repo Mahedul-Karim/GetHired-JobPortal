@@ -5,6 +5,7 @@ import {
 import { Company } from "../models/company.js";
 import { Candidate } from "../models/company/Candidate.js";
 import { CompantState } from "../models/company/State.js";
+import { Job } from "../models/job.js";
 import { Notification } from "../models/notifications.js";
 import AppError from "../util/error.js";
 import { calculateProfileCompletion, catchAsyncError } from "../util/util.js";
@@ -82,12 +83,13 @@ const getStates = catchAsyncError(async (req, res, next) => {
     .populate("jobId", "title jobLocation")
     .limit(4);
 
+
   res.status(200).json({
     success: true,
     state,
     applicants: finalData,
     notifications,
-    recentCandidates,
+    recentCandidates
   });
 });
 

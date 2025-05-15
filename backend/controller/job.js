@@ -1,5 +1,6 @@
 import { uploadToCloudinary } from "../config/cloudinary.js";
-import { Job } from "../models/Job.js";
+import { CompantState } from "../models/company/State.js";
+import { Job } from "../models/job.js";
 import { catchAsyncError } from "../util/util.js";
 
 const createJob = catchAsyncError(async (req, res, next) => {
@@ -20,6 +21,11 @@ const createJob = catchAsyncError(async (req, res, next) => {
   data.employer = userId;
 
   const job = await Job.create(data);
+
+  await CompantState.findOneAndUpdate(
+    { company: userId },
+    { $inc: { jobsPosted: 1 } }
+  );
 
   res.status(201).json({
     success: true,

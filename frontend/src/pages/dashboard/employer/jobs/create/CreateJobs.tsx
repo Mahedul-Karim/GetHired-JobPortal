@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Restricted from "../../../../../components/ui/Restricted";
 
 const CreateJobs = () => {
-  const { user } = useSelector((state: any) => state.user);
+  const { user,token } = useSelector((state: any) => state.user);
 
   if (user && user?.profileCompletion < 100) {
     return <Restricted text="Complete your profile to create jobs! ⚒" />;
@@ -22,7 +22,7 @@ const CreateJobs = () => {
         >
           Job Details
         </Heading>
-        <JobForm />
+        <JobForm token={token} />
       </Section>
     </>
   );

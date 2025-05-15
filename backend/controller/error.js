@@ -13,6 +13,11 @@ export const handleError = (err, req, res, next) => {
     error = new AppError(message);
   }
 
+  if (err.name === "ValidationError") {
+    const missingField = Object.keys(err.errors)[0];
+    error = new AppError(`${missingField} is required`, 400);
+  }
+
   if (err.name === "CastError") {
     const message = "Resources not found for this id";
     error = new AppError(message, 404);
