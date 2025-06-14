@@ -3,13 +3,13 @@ import { ChevronsUpDown } from "lucide-react";
 import { useOutsideClick } from "../../../hooks/useOutsideClick";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue: string;
+  defaultValue?: string;
   haveSearch?: boolean;
   searchPlaceholder?: string;
   popoverClass?: string;
-  value: string | number;
-  setValue: any;
-  data: {
+  value?: string | number;
+  setValue?: any;
+  data?: {
     label: string;
     image?: string;
     value: string;

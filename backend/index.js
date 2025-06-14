@@ -15,7 +15,7 @@ import { configCloudinary } from "./config/cloudinary.js";
 dotenv.config({ path: "./.env" });
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
 

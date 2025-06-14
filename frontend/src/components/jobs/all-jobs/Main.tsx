@@ -1,7 +1,6 @@
 import React from "react";
 import Popover from "../../ui/popover/Popover";
 import Card from "../Card";
-import { ChevronLeft } from "lucide-react";
 import Pagination from "../../ui/pagination/Pagination";
 
 const Main = () => {
