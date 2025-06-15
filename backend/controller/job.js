@@ -1,6 +1,6 @@
 import { uploadToCloudinary } from "../config/cloudinary.js";
 import { CompantState } from "../models/company/State.js";
-import { Job } from "../models/job.js";
+import { Job } from "../models/Job.js";
 import { catchAsyncError } from "../util/util.js";
 
 const createJob = catchAsyncError(async (req, res, next) => {
