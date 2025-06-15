@@ -5,7 +5,7 @@ import {
 import { Company } from "../models/company.js";
 import { Candidate } from "../models/company/Candidate.js";
 import { CompantState } from "../models/company/State.js";
-import { Job } from "../models/job.js";
+import { Job } from "../models/Job.js";
 import { Notification } from "../models/Notifications.js";
 import AppError from "../util/error.js";
 import { calculateProfileCompletion, catchAsyncError } from "../util/util.js";
