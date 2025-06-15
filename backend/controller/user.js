@@ -19,7 +19,7 @@ import {
 import { CompantState } from "../models/company/State.js";
 import { Candidate } from "../models/company/Candidate.js";
 import { UserState } from "../models/userState.js";
-import { Notification } from "../models/notifications.js";
+import { Notification } from "../models/Notifications.js";
 
 const generateOtp = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
